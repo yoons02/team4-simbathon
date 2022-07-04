@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<form action="{% url 'users:mypage_update' %}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <p>프로필 사진 : <input type="file" name="profile_image"></p>
+    <p>한줄소개 : <textarea name="intro" id="" cols="30" rows="10">{{ mypage.introduction }}</textarea></p>
+    <button type="submit">수정완료</button>
+</form>
+
+{% endblock %}

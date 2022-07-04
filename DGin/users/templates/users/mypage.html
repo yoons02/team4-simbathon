@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--navbar연동-->
+<div class="mypage">
+    <h1>{{ user.username }}</h1>
+    <!--전공 학년-->
+    {% for d in user_department %}
+    <h2>{{ d }}</h2>
+    {% endfor %}
+    <!--내가 쓴 글 보이기-->
+    <div>
+        {% for question in questions %}
+        <h2>{{ question.title }}</h2>
+        {{ question.summary_short }}<br>
+        <a href="{% url 'qna:detail' question.id %}">전체보기</a><hr>
+
+        {% endfor %}
+    </div>
+</div>
+
+<h1>내가 쓴 글 목록</h1>
+{{questions}}  <!--user의 views/mypage/questions 변수-->
+<!--수정필요-->
+
+<form action="{% url 'qna:create' %}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}  
+    <p>사진 : <input type="file" name="image"></p>
+    <p>내용 : <textarea name="body" id="" cols="30" rows="10"></textarea></p>
+    <button type="submit">제출</button>
+</form>
+<!--순서 수정-->
+<a href="{% url 'users:mypage_edit' %}">내 정보 수정하기</a>
+
+{% endblock %}
