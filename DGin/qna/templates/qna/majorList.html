@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+{% endblock %}
+
+
+
+
+{% block content %}
+<h1>전공 질문 리스트 페이지</h1>
+<section>
+    <h2>Question List</h2>
+    {% if user.is_authenticated %}
+    
+    <div class="new">
+        <h2><a href="{%url 'qna:new'%}">질문하기</a></h2>
+    </div>
+    
+    <form action="{%url 'qna:majorList' %}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <button type = "radio" name="selection" value="wait">답변을 기다리는 질문</button>
+        <button type = "radio" name="selection" value="done">채택 완료된 질문</button>
+    </form>
+
+    <div class="questions">
+        {% for q in questions %}
+        <div class="question">
+            <h2><a href="{% url 'qna:detail' q.id %}">{{q.title}}</a></h2>
+            {% if q.writer %}
+                {% if 'user' in q.writer.username %}
+                    <h5>작성자 : {{ q.writer.last_name }} {{ q.writer.first_name }}</h5>
+                {% else %}
+                    <h5>작성자 : {{ q.writer }}</h5>
+                    <h5>전공 : {{ q.major }}</h5>
+                    <h5>교수 : {{ q.major.professor }}</h5>
+                {% endif %}
+            {% else %}
+                <h5>작성자 : 알 수 없음</h5>
+            {% endif %}
+            <h5>추천수 : {{ q.like_counts }}</h5>
+            <h5>{{q.pub_date}}</h5>
+            <p>{{q.summary}}</p>
+            <br>
+        </div>
+        {% endfor %}
+    </div>    
+    {% else %}
+    <div class="nonmessage">
+        <h4>수업 Q&A 메뉴는 로그인 후 이용 가능합니다.</h4>
+        
+      <a href="{% url 'accounts:login' %}">로그인</a>
+      <a href="{% url 'accounts:signup' %}">회원가입</a>
+    </div>
+    {% endif %}
+
+</section>
+{% endblock %}

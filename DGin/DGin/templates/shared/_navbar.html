@@ -1,0 +1,58 @@
+{% load static %}
+    <!-- Nav Bar -->
+<nav class="navbar">
+  <div class="navbar__logo">
+        <div class="logo">
+            <a href="/">
+                <div class="image">
+                    <img src="{% static 'img/dgin_icon1.png' %}" alt="">
+                </div>
+                <div class="text">
+                    동국 iN
+                </div>
+            </a>
+        </div>
+  </div>
+  <ul class="navbar__menu">
+      <li>
+          <a href="{% url 'qna:majorList' %}">수업 Q&A</a>
+      </li>
+      <li>
+          <a href="{% url 'qna:nonmajorList' %}">기타 Q&A</a>
+      </li>
+  </ul>
+  <ul class="navbar__icons">
+      <li>
+          <i class="fab fa-twitter"></i>
+      </li>
+      <li>
+          <i class="fab fa-facebook"></i>
+      </li>
+      <li class="nav-item dropdown">
+          {% if user.is_authenticated %}
+          <!--로그인시 보이는 화면-->
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{user.username}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'users:mypage' %}">마이페이지</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a></li>
+          </ul>
+          {% else %}
+          <!--로그아웃시 보이는 화면-->
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          계정
+          </a>
+          <ul class="dropdown-menu main-nav" aria-labelledby="navbarDropdown">
+            <li><a class="signin" href="#0">로그인</a></li>
+            <li><a class="signup" href="#0">회원가입</a></li>
+          </ul>
+          {% endif %}
+      </li>
+  </ul>
+
+  <a href="#" class="navbar__toggleBtn">
+      <i class="fas fa-bars"></i>
+  </a>
+</nav>
+<!-- Nav bar -->

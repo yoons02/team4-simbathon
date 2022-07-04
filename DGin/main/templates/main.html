@@ -1,0 +1,428 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- On Img -->
+    <!-- https://ko.w3hmong.com/howto/howto_css_image_text.htm -->
+    <div class="on_img">
+        <img src="https://article.talentbank.co.kr/wp-content/uploads/2021/12/IT_twi001t3120033-scaled.jpg" alt="Snow"
+            style="width:100%;">
+        <div class="centered">
+
+            <!-- Search Bar -->
+
+            <div class="search-wrapper">
+                <form action="{% url 'qna:search' %}" method="GET">
+                    {% csrf_token %}
+                    <div class="input-holder">
+                        <input name="search" type="text" class="search-input" placeholder="무엇이든 물어보세요!" />
+                        <button type="submit" class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+                    </div>
+                    <span class="close" onclick="searchToggle(this, event);"></span>
+                </form>
+            </div>
+
+            <!-- Search Bar -->
+
+        </div>
+        <!-- <div class="bottom-left">Bottom Left</div>
+        <div class="top-left">Top Left</div>
+        <div class="top-right">Top Right</div>
+        <div class="bottom-right">Bottom Right</div> -->
+    </div>
+    <!-- On Img -->
+
+    <!-- Card Slide -->
+    <div class="body-slide">
+        <div class="card-slide">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="title">
+                이 질문의 답변을 기다리는 사람이 많아요!
+            </div>
+            <div class="main-card">
+                <div class="cards">
+                    
+                {% for q in recommended_questions1 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}    
+                </div>
+                <div class="cards">
+                    {% for q in recommended_questions2 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+            </div>
+            <div class="button">
+                <label for="one" class=" active one"></label>
+                <label for="two" class="two"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-slide">
+        <div class="card-slide">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="title">
+                가장 최근에 올라온 질문이에요!
+            </div>
+            <div class="main-card">
+                <div class="cards">
+                    {% for q in latest_questions1 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+                <div class="cards">
+                    {% for q in latest_questions2 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+            </div>
+            <div class="button">
+                <label for="one" class=" active one"></label>
+                <label for="two" class="two"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-slide">
+        <div class="card-slide">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="title">
+                아직 답변되지 않았어요!
+            </div>
+            <div class="main-card">
+                <div class="cards">
+                    {% for q in unsolved_questions1 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+                <div class="cards">
+                    {% for q in unsolved_questions2 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+            </div>
+            <div class="button">
+                <label for="one" class=" active one"></label>
+                <label for="two" class="two"></label>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="body-slide">
+        <div class="card-slide">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="title">
+                답변이 완료된 질문들이에요!
+            </div>
+            <div class="main-card">
+                <div class="cards">  
+                    {% for q in solved_questions1 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+                <div class="cards">
+                    {% for q in solved_questions2 %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}    
+                </div>
+            </div>
+            <div class="button">
+                <label for="one" class=" active one"></label>
+                <label for="two" class="two"></label>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
