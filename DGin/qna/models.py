@@ -40,7 +40,7 @@ class Question(models.Model):
         return self.title
 
     def title_short(self):
-        return f"{self.title[:15]}..."
+        return f"{self.title[:12]}..."
     
     def summary_short(self):
         return f"{self.body[:40]}..."
