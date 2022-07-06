@@ -102,15 +102,19 @@ def detail(request, id):
     question = get_object_or_404(Question, pk = id)
     all_answers = question.answers.all().order_by('created_at')
     if_q_solved = False
+    comments_count = question.answers.count()
+    
     for a in all_answers:
         if a.selection == True:
             if_q_solved = True
     question_writer = question.writer
+    
     return render(request, 'qna/detail.html', {
         'question':question, 
         'answers':all_answers,
         'if_q_solved':if_q_solved,
         'question_writer': question_writer,
+        'comments_count' : comments_count,
         })
 
 def major_new(request):
