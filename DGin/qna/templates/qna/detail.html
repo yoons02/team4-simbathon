@@ -88,23 +88,27 @@
                 <a href="{% url 'qna:delete_answer' question.id answer.id %}"><strong>삭제하기</strong></a>
                 {% endif %}
 
-                {% if if_q_solved == False %}
-                <form action="{%url 'qna:select' question.id answer.id %}" method="post">
-                    {%csrf_token%}
-                    {% if answer.selection == False %}
-                    <button type = "radio" name="select" value="True">답변 채택하기</button>
+                {% if question_writer == user %}
+
+                    {% if if_q_solved == False %}
+                    <form action="{%url 'qna:select' question.id answer.id %}" method="post">
+                        {%csrf_token%}
+                        {% if answer.selection == False %}
+                        <button type = "radio" name="select" value="True">답변 채택하기</button>
+                        {% else %}
+                        <button type = "radio" name="select" value="False">다른 답변 기다리기</button>
+                        {% endif %}
+                    </form>
                     {% else %}
-                    <button type = "radio" name="select" value="False">다른 답변 기다리기</button>
+                    
+                    {% if answer.selection == True %}
+                    <form action="{%url 'qna:select' question.id answer.id %}" method="post">
+                        {%csrf_token%}
+                        <button type = "radio" name="select" value="False">채택 취소하기</button>
+                    </form>
                     {% endif %}
-                </form>
-                {% else %}
-                
-                {% if answer.selection == True %}
-                <form action="{%url 'qna:select' question.id answer.id %}" method="post">
-                    {%csrf_token%}
-                    <button type = "radio" name="select" value="False">채택 취소하기</button>
-                </form>
-                {% endif %}
+                    {% endif %}
+
                 {% endif %}
 
                 <br><hr>

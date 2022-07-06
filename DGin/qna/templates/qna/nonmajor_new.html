@@ -7,23 +7,9 @@
 {% block content %}
 
 <section class="new">
-    <div class="question"><h1>질문하기</h1></div>
-    <form action="{%url 'qna:create'%}" method="post" enctype="multipart/form-data">
+    <div class="question"><h1>상담 글 쓰기</h1></div>
+    <form action="{%url 'qna:nonmajor_create'%}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
-        <div class="select_major">
-            <label for="subject">
-            과목선택
-            </label>
-            <select id="major" name="major">
-            <option value="">-- 선택하세요 --</option>
-
-            <option value="nothing">상담글</option>
-            {% for m in majors %}
-            <option value="{{ m }}">{{ m }}</option>
-            {% endfor %}
-
-            </select>
-        </div>
         <p><input type="text" name="title" id="title" style="font-size:14pt" placeholder="제목을 입력하세요" ></p>
         <!-- <p><input type="file" id="image"></p> -->
         <div class="filebox">

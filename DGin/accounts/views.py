@@ -22,7 +22,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('main:landing')
+    return render(request, 'logout.html')
 
 def signup(request):
     # signup 으로 POST 요청이 왔을 때, 새로운 유저를 만드는 절차를 밟는다.
@@ -39,6 +39,6 @@ def signup(request):
             profile.save()
 
             return redirect('users:myprofile_set')
-    # signup으로 GET 요청이 왔을 때, 회원가입 화면을 띄워준다.
+    # signup으로 GET 요청이 왔을 때, 회원가입 화면을 띄워준다
     return render(request, 'signup.html')
 # Create your views here.

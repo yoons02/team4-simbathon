@@ -3,12 +3,31 @@
 {% block content %}
 <!--navbar연동-->
 <div class="mypage">
-    <h1>{{ user.username }}</h1>
+    {% if profile.image %}
+    <img src="{{ profile.image.url }}" alt="사진" style="width:600px;">
+    {% endif %}
+    <h1>{{ profile.name }}</h1>
     <!--전공 학년-->
     {% for d in user_department %}
     <h2>{{ d }}</h2>
     {% endfor %}
+    <h2>{{ profile.year_in_school }}</h2>
+    <h4>{{ profile.introduction }}</h4>
+    <div>
+        <form action="{% url 'users:mypage_update' %}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <p>프로필 사진 : <input type="file" name="profile_image"></p>
+            <p>한줄소개 : <textarea name="intro" id="" cols="30" rows="10">{{ mypage.introduction }}</textarea></p>
+            <button type="submit">수정완료</button>
+        </form>
+    </div>
+
+    <!--순서 수정-->
+    <a href="{% url 'users:mypage_edit' %}">내 정보 수정하기</a>
+
+    <!--내가 질문한/ 답변한 글 수 보이게 하기-->
     <!--내가 쓴 글 보이기-->
+    <h1>내가 작성한 질문 목록</h1>
     <div>
         {% for question in questions %}
         <h2>{{ question.title }}</h2>
@@ -17,19 +36,18 @@
 
         {% endfor %}
     </div>
+    <h1>내가 작성한 답변 목록</h1>
+    <div>
+        {% for answer in answers %}
+        <h2>{{ answer.question.name }}</h2>
+        {{ answer.content }}<br>
+        <a href="{% url 'qna:detail' answer.question.id %}">전체보기</a><hr>
+        {% endfor %}
+    </div>
 </div>
 
-<h1>내가 쓴 글 목록</h1>
-{{questions}}  <!--user의 views/mypage/questions 변수-->
-<!--수정필요-->
 
-<form action="{% url 'qna:create' %}" method="post" enctype="multipart/form-data">
-    {%csrf_token%}  
-    <p>사진 : <input type="file" name="image"></p>
-    <p>내용 : <textarea name="body" id="" cols="30" rows="10"></textarea></p>
-    <button type="submit">제출</button>
-</form>
-<!--순서 수정-->
-<a href="{% url 'users:mypage_edit' %}">내 정보 수정하기</a>
+
+
 
 {% endblock %}

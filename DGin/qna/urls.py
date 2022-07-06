@@ -22,8 +22,10 @@ urlpatterns = [
     path('nonmajorlist/', nonmajorList, name="nonmajorList"),
     
     path('<int:id>', detail, name="detail"),
-    path('new/', new, name="new"),
-    path('create/', create, name="create"),
+    path('major_new/', major_new, name="major_new"),
+    path('nonmajor_new/', nonmajor_new, name="nonmajor_new"),
+    path('major_create/', major_create, name="major_create"),
+    path('nonmajor_create/', nonmajor_create, name="nonmajor_create"),
     path('edit/<int:id>', edit, name="edit"),
     path('update/<int:id>', update, name="update"),
     path('delete/<int:id>', delete, name="delete"),

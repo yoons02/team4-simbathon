@@ -24,11 +24,14 @@ def majorList(request):
         #질문들이 들어있는 리스트를 시간순으로 정렬합니다.(order_by는 queryset형태가 아니라 쓸 수 없음)
         questions_list = sorted(questions_list, key=lambda x: x.pub_date)
 
+        done_wait = False
+
         questions_result = []
         #post 요청(답변을 기다리는 질문/채택 완료된 질문)이 들어오면
         if request.method == 'POST':
             #채택완료된 질문만 보여준다
             if request.POST['selection'] == "done":
+                done_wait = True
                 for q in questions_list:
                     #한 질문의 모든 답변 불러오기
                     answers = q.answers.all()
@@ -36,6 +39,7 @@ def majorList(request):
                     for a in answers:
                         if a.selection == True:
                             questions_result.append(q)
+
             #답변을 기다리는 질문만 보여준다
             elif request.POST['selection'] == "wait":
                 for q in questions_list:
@@ -53,6 +57,7 @@ def majorList(request):
             'questions':questions_result,
             'departments':user_department,
             'majors':user_majors,
+            'if_done_wait': done_wait,
         })
     except :
         return render(request, 'qna/majorList.html')
@@ -63,9 +68,11 @@ def nonmajorList(request):
     #최종 질문들을 넣을 리스트 생성
     questions_result = []
     #post 요청(답변을 기다리는 질문/채택 완료된 질문)이 들어오면
+    done_wait = False
     if request.method == 'POST':
         #채택완료된 질문만 보여준다
         if request.POST['selection'] == "done":
+            done_wait = True
             for q in questions:
                 #한 질문의 모든 답변 불러오기
                 answers = q.answers.all()
@@ -88,6 +95,7 @@ def nonmajorList(request):
 
     return render(request, 'qna/nonmajorList.html', {
         'questions':questions_result,
+        'if_done_wait': done_wait,
     })
 
 def detail(request, id):
@@ -97,13 +105,15 @@ def detail(request, id):
     for a in all_answers:
         if a.selection == True:
             if_q_solved = True
+    question_writer = question.writer
     return render(request, 'qna/detail.html', {
         'question':question, 
         'answers':all_answers,
         'if_q_solved':if_q_solved,
+        'question_writer': question_writer,
         })
 
-def new(request):
+def major_new(request):
     #현재 로그인한 user의 profile을 가져옵니다.
     user_profile = get_object_or_404(Profile, user = request.user)
     #profile에서 학과를 불러옵니다.(여러개일수도 있어서 all 사용)
@@ -113,21 +123,44 @@ def new(request):
         user_majors = Major.objects.filter(department=d)
         for m in user_majors: 
             user_major_list.append(m)
-    return render(request, 'qna/new.html', {
+    return render(request, 'qna/major_new.html', {
         'majors': user_major_list,
     })
 
-def create(request):
+
+def nonmajor_new(request):
+    #현재 로그인한 user의 profile을 가져옵니다.
+    user_profile = get_object_or_404(Profile, user = request.user)
+    #profile에서 학과를 불러옵니다.(여러개일수도 있어서 all 사용)
+    user_department = user_profile.department.all()
+    user_major_list = []
+    for d in user_department:
+        user_majors = Major.objects.filter(department=d)
+        for m in user_majors: 
+            user_major_list.append(m)
+    return render(request, 'qna/nonmajor_new.html', {
+        'majors': user_major_list,
+    })
+
+def major_create(request):
     new_question = Question()
     new_question.title = request.POST['title']
     new_question.writer = request.user
     new_question.pub_date = timezone.now()
     new_question.body = request.POST['body']
     new_question.image = request.FILES.get('image')
-    if request.POST['major'] == 'nothing':
-        new_question.major = None
-    else:
-        new_question.major = get_object_or_404(Major, name = request.POST['major'])
+    new_question.major = get_object_or_404(Major, name = request.POST['major'])
+    new_question.save()
+    return redirect('qna:detail', new_question.id)
+
+def nonmajor_create(request):
+    new_question = Question()
+    new_question.title = request.POST['title']
+    new_question.writer = request.user
+    new_question.pub_date = timezone.now()
+    new_question.body = request.POST['body']
+    new_question.image = request.FILES.get('image')
+    new_question.major = None
     new_question.save()
     return redirect('qna:detail', new_question.id)
 
