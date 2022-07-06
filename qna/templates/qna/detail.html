@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/detail_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="question">
+        <div class="data1">
+        {% if question.major %}
+        <p class="major" style="align-items: left;">전공 | {{ question.major }} </p>
+        <p class="professor" style="align-items: right;">교수 | {{ question.major.professor }}</p>
+                {% endif %}</div>
+        <div class="title">
+        {{question.title}}</div>
+
+        {% if question.image %}
+            <div class="picBox pd56">
+                <div class="pic">
+                    <p><img src="{{ question.image.url }}" alt="사진"></p>
+                </div>
+            </div>
+        {% endif %}
+        <div class="answer">
+        <p>{{question.body}}</p></div>
+
+        <div class="data2">
+            {% if question.writer %}
+                {% if 'user' in question.writer.username %}
+                    작성자 | {{ question.writer.last_name }} {{ question.writer.first_name }}
+                {% else %}
+                    작성자 | {{ question.writer }}
+                {% endif %}
+            {% else %}
+                작성자 | 알 수 없음
+            {% endif %}<br>
+            작성일 | {{ question.pub_date }}
+        </div>
+
+            <form action="{%url 'qna:likes' question.id%}" method="POST">
+                <div class="idk">			
+                {%csrf_token%}
+                {% if user in question.like_users.all %}	
+                <button type="submit" style="border: none;"><a class="btn btn-orange">나도몰라요 취소  {{ question.like_counts }}</a></button>		
+                {% else %}
+                <button type="submit" style="border: none;"><a class="btn btn-orange">나도몰라요  {{ question.like_counts }}</a></button>		
+                {% endif %}</div>
+            </form>
+        
+        <br>
+            {% if question.writer == user %}
+            <a href="{% url 'qna:edit' question.id %}"><strong>수정하기 &nbsp</strong></a>
+            <a href="{% url 'qna:delete' question.id %}"><strong>삭제하기</strong></a>
+            {% endif %}
+        <hr>
+
+        {% if user.is_authenticated %}
+        <div class="solver">
+            <form action="{%url 'qna:create_answer' question.id%}" method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <textarea name="content" placeholder="문제의 답을 해결해주세요!"></textarea>
+                <div class="filebox">
+                    <input class="upload-name" value="파일선택" disabled="disabled">
+        
+                    <label for="ex_filename">업로드</label> 
+                    <input type="file" name="image" id="ex_filename" class="upload-hidden"> 
+                </div>
+                <div class="submit_button">			
+                    <button type="submit" style="border: none;"><a class="btn btn-orange">확인</a></button>		
+                </div>
+            </form>
+        </div>
+        
+        {% else %}
+        <h3>답변을 올리려면 로그인을 해 주세요.</h3>
+
+        {% endif %}
+        <br><hr>
+        <div>
+            {% for answer in answers %}
+            <div>
+                <h4>작성자 : {{answer.writer}}</h4>
+                {% if answer.selection is True %}
+                <h4>채택완료</h4>
+                {% endif %}
+                {% if answer.image %}
+                <div class="picBox pd56">
+                    <div class="pic">
+                        <p><img src="{{ answer.image.url }}" alt="사진"></p>
+                    </div>
+                </div>
+                <br>
+                {% endif %}
+                <p>{{answer.content}}</p>
+                {% if answer.writer == user %}
+                <a href="{% url 'qna:edit_answer' question.id answer.id %}"><strong>수정하기 &nbsp</strong></a>
+                <a href="{% url 'qna:delete_answer' question.id answer.id %}"><strong>삭제하기</strong></a>
+                {% endif %}
+
+                {% if question_writer == user %}
+
+                    {% if if_q_solved == False %}
+                    <form action="{%url 'qna:select' question.id answer.id %}" method="post">
+                        {%csrf_token%}
+                        {% if answer.selection == False %}
+                        <button type = "radio" name="select" value="True">답변 채택하기</button>
+                        {% else %}
+                        <button type = "radio" name="select" value="False">다른 답변 기다리기</button>
+                        {% endif %}
+                    </form>
+                    {% else %}
+                    
+                    {% if answer.selection == True %}
+                    <form action="{%url 'qna:select' question.id answer.id %}" method="post">
+                        {%csrf_token%}
+                        <button type = "radio" name="select" value="False">채택 취소하기</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+
+                {% endif %}
+
+                <br>
+            </div>
+            {% endfor %}
+        </div>  
+    </div>
+</section>
+<script src="{% static 'js/que_new.js' %}" defer="defer"></script>
+{% endblock %}

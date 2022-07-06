@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/que_new.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="new">
+    <div class="question"><h1>질문하기</h1></div>
+    <form action="{%url 'qna:major_create'%}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="select_major">
+            <label for="subject">
+            과목선택
+            </label>
+            <select id="major" name="major">
+            <option value="">-- 선택하세요 --</option>
+            {% for m in majors %}
+            <option value="{{ m }}">{{ m }}</option>
+            {% endfor %}
+
+            </select>
+        </div>
+        <input type="text" name="title" id="title" style="font-size:14pt" placeholder="제목을 입력하세요" >
+        <!-- <p><input type="file" id="image"></p> -->
+        <div class="filebox">
+            <input class="upload-name" value="파일선택" disabled="disabled">
+
+            <label for="ex_filename">업로드</label> 
+            <input type="file" name="image" id="ex_filename" class="upload-hidden"> 
+        </div>
+        <p><textarea name="body" class='autoExpand' rows='3' data-min-rows='3' placeholder='내용을 입력하세요' style="font-size:14pt" autofocus></textarea></p>
+        
+        <!-- <div class="submit_botton"><button type = "submit">제출</button></div> -->
+        <div class="submit_button">			
+            <button type="submit" style="border: none;"><a class="btn btn-orange">물어보기</a></button>		
+        </div>
+    </form>
+</section>
+<script src="{% static 'js/que_new.js' %}" defer="defer"></script>
+{% endblock %}

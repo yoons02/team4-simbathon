@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <h2>댓글 수정하기</h1>
+    <form action="{% url 'qna:update_answer' question.id answer.id %}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p>내용: <textarea type="text" name="content" id="" cols="30" rows="10">{{answer.content}}</textarea></p>
+        <p>사진: <input type="file" name="image" value=""></p>
+        <button type="submit">제출</button>
+    </form>
+</section>
+{% endblock %}

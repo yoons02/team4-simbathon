@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<form action="{% url 'users:mypage_create' %}" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    <p>프로필 사진 : <input type="file" name="profile_image"></p>
+    <p>한줄소개 : <textarea name="intro" id="" cols="30" rows="10"></textarea></p>
+    <button type="submit">끝?</button>
+</form>
+
+{% endblock %}

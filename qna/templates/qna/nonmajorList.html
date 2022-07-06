@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+
+<link rel="stylesheet" href="{% static 'css/major_q_style.css' %}">
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rufina:400,700|Source+Sans+Pro:200,300,400,600,700" rel="stylesheet">
+
+{% endblock %}
+
+
+
+
+{% block content %}
+<div id="site__bg"></div>
+<div class="main">
+
+<!-- Left Title -->
+<section class="site">
+    <h1 class="site__title site__title--separator">상담</h1>
+    {% if if_done_wait %}
+    <p class="site__description">답변이 완료된 질문들입니다.</p>
+    {% else %}
+    <p class="site__description">답변을 기다리는 질문들이 있어요!</p>
+    {% endif %}
+</section>
+
+{% if user.is_authenticated %}
+<!-- Left Title -->
+<section class="make_question">
+    <div class="new">
+        <h4><a href="{%url 'qna:nonmajor_new'%}">상담하기 &rarr;</a></h4>
+    </div>
+</section>
+{% else %}
+<div class="nonmessage">
+    <h4>글 작성은 로그인 후 이용 가능합니다.</h4>
+    
+  <a href="{% url 'accounts:login' %}">로그인</a>
+  <a href="{% url 'accounts:signup' %}">회원가입</a>
+</div>
+{% endif %}
+<!-- Right Questions -->
+<section class="question_menu">
+    <div class="search-wrapper2">
+        <form action="{% url 'qna:search' %}" method="GET">
+            {% csrf_token %}
+            <div class="input-holder">
+                <input name="search" type="text" class="search-input" placeholder="무엇이든 물어보세요!" />
+                <button type="submit" class="search-icon">
+                    <img src="{% static 'img/search.png' %}" alt="">
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="selection">
+        <form class="selectionForm" action="{%url 'qna:nonmajorList' %}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+                <input id="wait" type = "radio" name="selection" value="wait"> 
+                <button type="submit">
+                    <label for="wait">답변대기중</label>
+                </button>
+                <input id="done" type = "radio" name="selection" value="done">
+                <button type="submit">
+                    <label for="done">답변완료</label>
+                </button>
+        </form>
+    </div>
+</section>
+    
+
+<section class="episodes">
+
+    <!-- CARD -->
+    <div class="body-slide">
+        <div class="card-slide2">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="main-card">
+                <div class="cards">
+                    
+                {% for q in questions %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<!-- Right Questions -->
+
+</div>
+
+
+{% endblock %}
