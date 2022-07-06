@@ -21,7 +21,9 @@
         {% else %}
             <h3>작성자 : 알 수 없음</h3>
         {% endif %}
-        <h5>추천수 : {{ question.like_counts }}</h5>
+        <h5>나도몰라요 : {{ question.like_counts }}</h5>
+        <h5>답변수 : {{ question.answers.count }}</h5>
+
         <h5>{{ question.pub_date }}</h5>
         <br>
         {% if question.image %}
