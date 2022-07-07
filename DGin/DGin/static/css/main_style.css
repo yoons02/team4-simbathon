@@ -1,15 +1,41 @@
-/*  Mine  */
 :root {
     --text-color: #f0f4f5;
     --background-color: #263343;
+    --dongguk-color-0-- : #ffc98f;
     --dongguk-color-1-- : #F29303;
     --dongguk-color-2-- : #EA5515;
     --dongguk-color-3-- : #433526;
-    --accent-color: rgb(87, 170, 166);
-}      
-a {
+    --accent-color: rgb(87, 170, 166)
+  }      
+  a {
     text-decoration: none;
     color: var(--text-color);
+    border:none !important;
+  }   
+  .info{
+    /* font-weight:1000px; */
+    font-size: large;
+    border: 10px none rgb(235, 145, 28);
+    width: 50%;
+    /* box-shadow: 0 0px 10px 0 rgba(252, 161, 25, 0.5); */
+    margin-left:auto;
+    margin-right:auto;
+    padding-left: 5rem;
+  }
+  
+  .info-title{
+    font-weight:bold;
+    font-size: 1.2rem;
+  }
+  
+  .info-text{
+    font-weight: normal;
+    color: black;
+  }
+  
+a:hover{
+    text-decoration: none;
+    color: white !important;
 }
 .container {
     max-width: 100%;
@@ -682,26 +708,17 @@ input[type="radio"] {
 }
 
 
-footer {
-    background-color: #c68700;
-    color : var(--dongguk-color-3--);
-    display: flex;
-    padding: .5rem 2rem;
-    font-size: 1rem;
-    font-weight: 300; }
-    footer .footer__content {
-      width: 60%; }
-    footer .footer__logo {
-      width: 40%;
-      text-align: right;
-      align-self: center;
-      margin-top: 0.5rem 0 -0.5rem 0; }
+
+.footer {
+    padding: 2.5rem 0;
+    background: #f7fafc;
+  }
   
-
-@media only screen and (min-width: 1000px) {
-    
-  footer {
-    padding-left: 110px;
-    margin-bottom: -1rem; }
-
-}
+  .footer .copyright {
+    font-size: .875rem;
+    font-weight: bold;
+  }
+  .footer .copyright .dgu-lion {
+    color: var(--dongguk-color-2--);
+    font-weight: bold;
+  }

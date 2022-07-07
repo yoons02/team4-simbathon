@@ -1,5 +1,7 @@
 from django.urls import path
 from .views import *
+from django.conf.urls.static import static
+from django.conf import settings
 
 app_name = "users"
 urlpatterns = [
@@ -10,7 +12,7 @@ urlpatterns = [
   path('mypage_update/', mypage_update,name="mypage_update"),
   path('myprofile_set/', myprofile_set, name="myprofile_set"),
   path('myprofile_save/', myprofile_save, name="myprofile_save"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # get방식 요청이 접근 > urls.py > views.py > html 순서대로 넘어가는데
 # 처음에 mypage_edit, mypage_update에서 <int:id>이런식으로 인자를 넘겨줬잖아?

@@ -1,53 +1,137 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
+{% block style&js %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile_style.css' %}">
+<!-- mypage -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<!--navbar연동-->
-<div class="mypage">
-    {% if profile.image %}
-    <img src="{{ profile.image.url }}" alt="사진" style="width:600px;">
-    {% endif %}
-    <h1>{{ profile.name }}</h1>
-    <!--전공 학년-->
-    {% for d in user_department %}
-    <h2>{{ d }}</h2>
-    {% endfor %}
-    <h2>{{ profile.year_in_school }}</h2>
-    <h4>{{ profile.introduction }}</h4>
-    <div>
-        <form action="{% url 'users:mypage_update' %}" method="post" enctype="multipart/form-data">
-            {%csrf_token%}
-            <p>프로필 사진 : <input type="file" name="profile_image"></p>
-            <p>한줄소개 : <textarea name="intro" id="" cols="30" rows="10">{{ mypage.introduction }}</textarea></p>
-            <button type="submit">수정완료</button>
-        </form>
+    <div class="main-content">
+      <div class="container mt-7">
+        <!-- Table -->
+        <!-- <h2 class="mb-5">개인 프로필</h2> -->
+        <br>
+        <br>
+        <div class="box">
+          <div class="col-xl-8 m-auto order-xl-2 mb-5 mb-xl-0">
+            <div class="card card-profile shadow">
+              <div class="row justify-content-center">
+                <div class="col-lg-3 order-lg-2">
+                  <div class="card-profile-image">
+                    <a href="#">
+                      {% if profile.image  %}
+                      <img src="{{ profile.image.url }}" class="rounded-circle">
+                      {% else %}
+                      <img src="https://t1.daumcdn.net/cfile/tistory/996D544A5ED865C83C" class="rounded-circle">
+                      {% endif %}
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                <div class="d-flex justify-content-between">
+                  <!-- <a href="#" class="btn btn-sm btn-info mr-4">Connect</a> -->
+                  <a href="{% url 'users:mypage_edit' %}" class="btn btn-sm btn-default float-right">프로필 수정하기</a>
+                </div>
+              </div>
+              <div class="card-body pt-0 pt-md-4">
+                <div class="row">
+                  <div class="col">
+                    <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                      <div>
+                        <span class="heading">{{count_q}}</span>
+                        <span class="description">작성한 질문 수</span>
+                      </div>
+                      <div>
+                        <span class="heading">{{count_a}}</span>
+                        <span class="description">작성한 답변 수</span>
+                      </div>
+                      <!-- <div>
+                        <span class="heading">89</span>
+                        <span class="description">Comments</span>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <div class="info">
+                  <!-- <p class="sanserif">
+                  <h1>
+                      INFO
+                  </h1>
+                  </p> -->
+                  <p class="nickname">
+                      <p class="info-title">닉네임 &nbsp;|
+                        <span class="info-text">
+                          <I>{{profile}}</I>
+                        </span>
+                      </p>
+                  </p>
+                  <p class="major">
+                    <p class="info-title">전　공 &nbsp;|
+                      <span class="info-text">
+                        <I>{% for d in user_department %}{{ d }}{% endfor %}</I>
+                      </span>
+                    </p>
+                  </p>
+
+                  <p class="grade">
+                    <p class="info-title">학　년 &nbsp;|
+                      <span class="info-text">
+                        <I>{{profile.year_in_school}}</I>
+                      </span>
+                    </p>
+                  </p>
+              </div>
+                <div class="text-center">
+                  <!-- <h3>
+                    <span class="name"><br>안유성</span>
+                    <span class="major"><br>전자과</span>
+                  </h3>
+                  <div class="h5 font-weight-300">
+                    <i class="ni location_pin mr-2"></i>2학년
+                  </div>
+                  <br>
+                  <div>
+                    <i class="ni education_hat mr-2"></i>[ 자신있는 수업 ]
+                  </div>
+                  <div class="h5 ">
+                    <i class="ni business_briefcase-24 mr-2"></i>: 전자기학, 회로이론
+                  </div> -->
+                  
+                  <hr class="my-4">
+                  <p class="introduce">— {{profile.introduction}}</p>
+                  <!-- <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Show more</a> -->
+                  <hr class="my-4">
+                  <div class="post_list">
+                    <div class="questions">
+                      <h4>내가 작성한 질문 목록</h4>
+                      {% for question in questions %}
+                      <a href="{% url 'qna:detail' question.id %}">
+                        <h5>{{ question.title }}</h5>
+                      </a>
+                      {% endfor %}
+                    </div>
+                    <div class="answers">
+                      <h4>내가 작성한 답변 목록</h4>
+                      {% for answer in answers %}
+                      <a href="{% url 'qna:detail' answer.question.id %}">
+                        <h5>{{ answer.content }}</h5>
+                      </a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!--순서 수정-->
-    <a href="{% url 'users:mypage_edit' %}">내 정보 수정하기</a>
-
-    <!--내가 질문한/ 답변한 글 수 보이게 하기-->
-    <!--내가 쓴 글 보이기-->
-    <h1>내가 작성한 질문 목록</h1>
-    <div>
-        {% for question in questions %}
-        <h2>{{ question.title }}</h2>
-        {{ question.summary_short }}<br>
-        <a href="{% url 'qna:detail' question.id %}">전체보기</a><hr>
-
-        {% endfor %}
-    </div>
-    <h1>내가 작성한 답변 목록</h1>
-    <div>
-        {% for answer in answers %}
-        <h2>{{ answer.question.name }}</h2>
-        {{ answer.content }}<br>
-        <a href="{% url 'qna:detail' answer.question.id %}">전체보기</a><hr>
-        {% endfor %}
-    </div>
-</div>
-
-
-
-
-
+    
+  <script src="{% static 'js/profile_js.js' %}" defer></script>
 {% endblock %}

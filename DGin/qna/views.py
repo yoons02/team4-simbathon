@@ -102,15 +102,21 @@ def detail(request, id):
     question = get_object_or_404(Question, pk = id)
     all_answers = question.answers.all().order_by('created_at')
     if_q_solved = False
+    comments_count = question.answers.count()
+    user_profile = get_object_or_404(Profile, user = request.user)
+    
     for a in all_answers:
         if a.selection == True:
             if_q_solved = True
     question_writer = question.writer
+    
     return render(request, 'qna/detail.html', {
         'question':question, 
         'answers':all_answers,
         'if_q_solved':if_q_solved,
         'question_writer': question_writer,
+        'user_profile':user_profile,
+        'comments_count' : comments_count,
         })
 
 def major_new(request):
@@ -145,18 +151,20 @@ def nonmajor_new(request):
 def major_create(request):
     new_question = Question()
     new_question.title = request.POST['title']
-    new_question.writer = request.user
+    user_profile = get_object_or_404(Profile, user = request.user)
+    new_question.writer = user_profile
     new_question.pub_date = timezone.now()
     new_question.body = request.POST['body']
     new_question.image = request.FILES.get('image')
-    new_question.major = get_object_or_404(Major, name = request.POST['major'])
+    new_question.major = get_object_or_404(Major, id = request.POST['major'])
     new_question.save()
     return redirect('qna:detail', new_question.id)
 
 def nonmajor_create(request):
     new_question = Question()
     new_question.title = request.POST['title']
-    new_question.writer = request.user
+    user_profile = get_object_or_404(Profile, user = request.user)
+    new_question.writer = user_profile
     new_question.pub_date = timezone.now()
     new_question.body = request.POST['body']
     new_question.image = request.FILES.get('image')
@@ -183,7 +191,8 @@ def edit(request, id):
 def update(request, id):
     update_question = Question.objects.get(id=id)
     update_question.title = request.POST['title']
-    update_question.writer =  request.user
+    user_profile = get_object_or_404(Profile, user = request.user)
+    update_question.writer = user_profile
     update_question.pub_date = timezone.now()
     update_question.body = request.POST['body']
     update_question.image = request.FILES.get('image')
@@ -201,7 +210,8 @@ def delete(request , id):
 
 def create_answer(request, question_id):
     new_answer = Answer()
-    new_answer.writer = request.user
+    user_profile = get_object_or_404(Profile, user = request.user)
+    new_answer.writer = user_profile
     new_answer.content = request.POST['content']
     new_answer.created_at = timezone.now()
     new_answer.question = get_object_or_404(Question, pk=question_id)
@@ -218,7 +228,8 @@ def update_answer(request, question_id, answer_id):
     target_question = Question.objects.get(id = question_id)
     update_answer = Answer.objects.get(id = answer_id)
     update_answer.content = request.POST['content']
-    update_answer.writer =  request.user
+    user_profile = get_object_or_404(Profile, user = request.user)
+    update_answer.writer = user_profile
     update_answer.image = request.FILES.get('image')
     update_answer.save()
     return redirect('qna:detail', target_question.id)

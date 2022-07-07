@@ -3,11 +3,11 @@
 <nav class="navbar">
   <div class="navbar__logo">
         <div class="logo">
-            <a href="/">
+            <a href="/" style="text-decoration: none; color:white;">
                 <div class="image">
                     <img src="{% static 'img/dgin_icon1.png' %}" alt="">
                 </div>
-                <div class="text">
+                <div class="text" style="color:white;">
                     동국 !N
                 </div>
             </a>
@@ -15,33 +15,33 @@
   </div>
   <ul class="navbar__menu">
       <li>
-          <a href="{% url 'qna:majorList' %}">질문게시판</a>
+          <a href="{% url 'qna:majorList' %}" style="text-decoration: none; color:white;">질문게시판</a>
       </li>
       <li>
-          <a href="{% url 'qna:nonmajorList' %}">상담게시판</a>
+          <a href="{% url 'qna:nonmajorList' %}" style="text-decoration: none; color:white;">상담게시판</a>
       </li>
   </ul>
   <ul class="navbar__icons">
       <li class="nav-item dropdown">
           {% if user.is_authenticated %}
           <!--로그인시 보이는 화면-->
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white; text-decoration: none;">
           {{user.username}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'users:mypage' %}">마이페이지</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a></li>
+            <li><a class="dropdown-item" href="{% url 'users:mypage' %}" style="text-decoration: none; color:white;">마이페이지</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}" style="text-decoration: none; color:white;">로그아웃</a></li>
           </ul>
           {% else %}
           <!--로그아웃시 보이는 화면-->
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white; text-decoration: none;">
             <div class="profile_icon">
                 <img src="{% static 'img/profile.png' %}" alt="">
             </div>
           </a>
           <ul class="dropdown-menu main-nav" aria-labelledby="navbarDropdown">
-            <li><a class="signin" href="#0">로그인</a></li>
-            <li><a class="signup" href="#0">회원가입</a></li>
+            <li><a class="signin" href="#0" style="color:white;">로그인</a></li>
+            <li><a class="signup" href="#0" style="color:white;">회원가입</a></li>
           </ul>
           {% endif %}
       </li>

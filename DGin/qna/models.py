@@ -22,14 +22,51 @@ class Major(models.Model):
     name = models.CharField(max_length=20)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='majors')
+    id = models.AutoField(primary_key=True)
+    def __str__(self):
+        return self.name
+
+
+#개인프로필, auth의 User를 일대일 필드로 가짐
+class Profile(models.Model):
+    name = models.CharField(max_length=20, blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
+    image = models.ImageField(upload_to = "image/", blank=True, null=True)
+    department = models.ManyToManyField(Department)
+    introduction = models.TextField(max_length=300, blank=True, null=True)
+
+    FRESHMAN = '1학년'
+    SOPHOMORE = '2학년'
+    JUNIOR = '3학년'
+    SENIOR = '4학년'
+    POSTGRAD = '대학원생'
+    GRADUATED = '졸업생'
+    YEAR_IN_SCHOOL_CHOICES = [
+        (FRESHMAN, '1학년'),
+        (SOPHOMORE, '2학년'),
+        (JUNIOR, '3학년'),
+        (SENIOR, '4학년'),
+        (POSTGRAD, '대학원생'),
+        (GRADUATED, '졸업생'),
+    ]
+    year_in_school = models.CharField(
+        max_length=10,
+        choices=YEAR_IN_SCHOOL_CHOICES,
+        default=FRESHMAN,
+    )
+
+
+    def is_upperclass(self):
+        return self.year_in_school in (self.JUNIOR, self.SENIOR)
 
     def __str__(self):
         return self.name
 
+
 #질문
 class Question(models.Model):
     title = models.CharField(max_length=200)
-    writer = models.ForeignKey(User, on_delete=models.CASCADE)
+    writer = models.ForeignKey(Profile, on_delete=models.CASCADE)
     pub_date = models.DateTimeField()
     body = models.TextField()
     major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
@@ -59,7 +96,7 @@ class QuestionImage(models.Model):
 #답변
 class Answer(models.Model):
     content = models.TextField()
-    writer = models.ForeignKey(User, on_delete=models.CASCADE)
+    writer = models.ForeignKey(Profile, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     created_at = models.DateTimeField()
     image = models.ImageField(upload_to = "answer/", blank=True, null=True)
@@ -67,39 +104,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.content[:20]
-
-#개인프로필, auth의 User를 일대일 필드로 가짐
-class Profile(models.Model):
-    name = models.CharField(max_length=20, blank=True, null=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
-    image = models.ImageField(upload_to = "image/", blank=True, null=True)
-    department = models.ManyToManyField(Department)
-    introduction = models.TextField(max_length=300, blank=True, null=True)
-    bookmark = models.ManyToManyField(Question)
-
-    FRESHMAN = '1학년'
-    SOPHOMORE = '2학년'
-    JUNIOR = '3학년'
-    SENIOR = '4학년'
-    POSTGRAD = '대학원생'
-    GRADUATED = '졸업생'
-    YEAR_IN_SCHOOL_CHOICES = [
-        (FRESHMAN, '1학년'),
-        (SOPHOMORE, '2학년'),
-        (JUNIOR, '3학년'),
-        (SENIOR, '4학년'),
-        (POSTGRAD, '대학원생'),
-        (GRADUATED, '졸업생'),
-    ]
-    year_in_school = models.CharField(
-        max_length=10,
-        choices=YEAR_IN_SCHOOL_CHOICES,
-        default=FRESHMAN,
-    )
-
-
-    def is_upperclass(self):
-        return self.year_in_school in (self.JUNIOR, self.SENIOR)
-
-    def __str__(self):
-        return self.name

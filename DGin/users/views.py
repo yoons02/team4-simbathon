@@ -3,18 +3,19 @@ from qna.models import Question, Profile, Department, Answer
 
 def mypage(request):
    #내가 쓴 글 필터링하는 함수
-   user=request.user
-   questions=Question.objects.filter(writer=user)
-   user_profile=get_object_or_404(Profile, user=user)
+   user_profile = get_object_or_404(Profile, user = request.user)
+   questions=Question.objects.filter(writer=user_profile)
    user_department = user_profile.department.all()
-   edit_mypage = get_object_or_404(Profile, user = request.user)
-   answers=Answer.objects.filter(writer=user)
+   answers=Answer.objects.filter(writer=user_profile)
+   count_q = questions.count()
+   count_a = answers.count()
    return render(request,'users/mypage.html',{
       'questions':questions,
       'profile':user_profile,
       'user_department':user_department,
-      'mypage' : edit_mypage,
       'answers': answers,
+      'count_q': count_q,
+      'count_a': count_a,
       })
 
 
@@ -33,9 +34,7 @@ def mypage_create(request):
     return redirect('users:mypage')
 
 def mypage_edit(request):
-   #질문 작성 crud에서는 질문의 id를 가져와서 수정했던거에 비해 프로필은 request.user로 현재 로그인된 계정을 불러올수 있으니까 따로 id를 선언해줄 필요 없어
-   edit_mypage = get_object_or_404(Profile, user = request.user)
-   
+   #질문 작성 crud에서는 질문의 id를 가져와서 수정했던거에 비해 프로필은 request.user로 현재 로그인된 계정을 불러올수 있으니까 따로 id를 선언해줄 필요 없어   
    departments = Department.objects.all()
    myprofile = get_object_or_404(Profile, user=request.user)
    mine =  myprofile.department.all()
@@ -47,7 +46,6 @@ def mypage_edit(request):
       else:
          plus_result.append(d)
    return render(request,'users/mypage_edit.html',{
-      'mypage' : edit_mypage,
       'plus_departments':plus_result,   
       'minus_departments':minus_result,
       'profile':myprofile,
@@ -84,6 +82,8 @@ def mypage_update(request):
       update_mypage.year_in_school = POSTGRAD 
    elif grade == "gr":
       update_mypage.year_in_school = GRADUATED
+   else :
+      pass
    update_mypage.save()
    return redirect('users:mypage')
 

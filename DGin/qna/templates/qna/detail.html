@@ -9,19 +9,17 @@
     <div class="question">
         <h1>{{question.title}}</h1>
         {% if question.writer %}
-            {% if 'user' in question.writer.username %}
-                <h3>작성자 : {{ question.writer.last_name }} {{ question.writer.first_name }}</h3>
-            {% else %}
-                <h3>작성자 : {{ question.writer }}</h3>
-                {% if question.major %}
-                    <h5>전공 : {{ question.major }}</h5>
-                    <h5>교수 : {{ question.major.professor }}</h5>
-                {% endif %}
+            <h3>작성자 : {{ question.writer }}</h3>
+            {% if question.major %}
+                <h5>전공 : {{ question.major }}</h5>
+                <h5>교수 : {{ question.major.professor }}</h5>
             {% endif %}
         {% else %}
             <h3>작성자 : 알 수 없음</h3>
         {% endif %}
-        <h5>추천수 : {{ question.like_counts }}</h5>
+        <h5>나도몰라요 : {{ question.like_counts }}</h5>
+        <h5>답변수 : {{ question.answers.count }}</h5>
+
         <h5>{{ question.pub_date }}</h5>
         <br>
         {% if question.image %}
@@ -46,7 +44,7 @@
             </form>
         </div>
         <br>
-            {% if question.writer == user %}
+            {% if question.writer == user_profile %}
             <a href="{% url 'qna:edit' question.id %}"><strong>수정하기 &nbsp</strong></a>
             <a href="{% url 'qna:delete' question.id %}"><strong>삭제하기</strong></a>
             {% endif %}
@@ -83,12 +81,12 @@
                 <br>
                 {% endif %}
                 <p>{{answer.content}}</p>
-                {% if answer.writer == user %}
+                {% if answer.writer == user_profile %}
                 <a href="{% url 'qna:edit_answer' question.id answer.id %}"><strong>수정하기 &nbsp</strong></a>
                 <a href="{% url 'qna:delete_answer' question.id answer.id %}"><strong>삭제하기</strong></a>
                 {% endif %}
 
-                {% if question_writer == user %}
+                {% if question_writer == user_profile %}
 
                     {% if if_q_solved == False %}
                     <form action="{%url 'qna:select' question.id answer.id %}" method="post">

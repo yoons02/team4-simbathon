@@ -9,7 +9,7 @@
 }      
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: var(--text-color);
 }
 
@@ -48,7 +48,7 @@ body{
     border-radius: 6px;
     outline: none;
     margin: 30px;
-    padding-left: 10px;
+    padding: 20px;
     background-color: rgb(255, 255, 255);
 }
 
@@ -62,7 +62,7 @@ textarea {
     border-radius: 6px;
     outline: none;
     margin: 30px auto;
-    padding-left: 10px;
+    padding: 20px;
     background-color: rgb(255, 255, 255);
 }
 
@@ -199,12 +199,12 @@ nav {
 
 
 * {-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;}
-a{text-decoration:none;}
+a{text-decoration:none !important;}
 
 /********************
 GENERIC BUTTON STYLES
 ********************/
-.btn {font-size: 18px; white-space:nowrap; width:100%; padding:.8em 1.5em; font-family: Open Sans, Helvetica,Arial,sans-serif; line-height:18px; display: inline-block;zoom: 1; color: #fff; text-align: center; position:relative; -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear; transition: border .25s linear, color .25s linear, background-color .25s linear;}
+.btn {border:none; font-size: 18px; white-space:nowrap; width:100%; padding:.8em 1.5em; font-family: Open Sans, Helvetica,Arial,sans-serif; line-height:18px; display: inline-block;zoom: 1; color: #fff; text-align: center; position:relative; -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear; transition: border .25s linear, color .25s linear, background-color .25s linear;}
 
 /*DARK BUTTON STYLES*/		
 .btn.btn-orange{background-color: #f59e00; border-color: #f59e00; -webkit-box-shadow: 0 3px 0 #b37401; box-shadow: 0 3px 0 #b37401;}

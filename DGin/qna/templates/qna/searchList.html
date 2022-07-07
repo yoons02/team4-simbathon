@@ -20,7 +20,8 @@
                 <h5>작성자 : {{ q.writer.last_name }} {{ q.writer.first_name }}</h5>
             {% else %}
                 <h5>작성자 : {{ q.writer }}</h5>
-                <h5>추천수 : {{ q.like_counts }}</h5>
+                <h5>나도몰라요 : {{ q.like_counts }}</h5>
+                <h5>답변수 : {{ q.answers.count }}</h5>
                 {% if q.major %}
                     <h5>전공 : {{ q.major }}</h5>
                     <h5>교수 : {{ q.major.professor }}</h5>
