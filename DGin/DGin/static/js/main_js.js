@@ -1,3 +1,5 @@
+'use strict';
+
 const toggleBtn = document.querySelector(".navbar__toggleBtn");
 const menu = document.querySelector(".navbar__menu");
 const icons = document.querySelector(".navbar__icons");
@@ -24,12 +26,8 @@ function searchToggle(obj, evt){
             container.find('.search-input').val('');
         }
 }
-// Arrow__up
+// Arrow__up : 적용이 어쩐지 안되서 html에다가 적용함 
 
-// arrow up 버튼 클릭시 홈 화면으로 이동
-arrow__up.addEventListener('click', ()=>{
-    scrollIntoView('#home');
-});
 
 
 

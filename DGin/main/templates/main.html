@@ -432,9 +432,16 @@
         </div>
     </div>
         <!-- Arrow up -->
-        <button class="arrow__up">
+        <button class="arrow__up" onclick="moveToTop()">
             <i class="fa-solid fa-arrow-up"></i>
         </button>
+
+        <script>
+        var moveToTop = function() {
+        document.body.scrollIntoView({behavior:'smooth'});
+        };
+
+        </script>
 
 
 {% endblock %}
