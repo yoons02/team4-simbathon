@@ -24,7 +24,7 @@ body {
   width: 400px;
   color: rgba(0,0,0,1);
   position: relative;
-  font-family: Inter;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Regular;
   font-size: 15px;
   opacity: 1;
@@ -34,7 +34,7 @@ body {
   width: 400px;
   color: rgba(0,0,0,1);
   position: relative;
-  font-family: Inter;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Regular;
   font-size: 15px;
   opacity: 1;
@@ -53,7 +53,7 @@ body {
   width: 94px;
   color: rgba(0,0,0,1);
   position: relative;
-  font-family: NanumGothic;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Bold;
   font-size: 30px;
   opacity: 1;
@@ -63,7 +63,7 @@ body {
   width: 94px;
   color: rgba(0,0,0,1);
   position: relative;
-  font-family: NanumGothic;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Bold;
   font-size: 20px;
   opacity: 1;
@@ -73,7 +73,7 @@ body {
   width: 58px;
   color: rgba(0,0,0,1);
   position: relative;
-  font-family: NanumGothic;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Bold;
   font-size: 20px;
   opacity: 1;
@@ -119,7 +119,7 @@ form > div{
   -webkit-box-shadow: 0 3px 0 #b37401; 
   box-shadow: 0 3px 0 #b37401;
   
-  font-family: NanumGothic;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Bold;
   font-size: 16px;
 }
@@ -131,13 +131,13 @@ form > div{
 }
 
 .id, .pw{
-  font-family: NanumGothic;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: Bold;
   font-size: 16px;
 }
 
 .message{
-  font-family: NanumGothic;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: light;
   font-size: 16px;
 }
