@@ -103,21 +103,24 @@ def detail(request, id):
     all_answers = question.answers.all().order_by('created_at')
     if_q_solved = False
     comments_count = question.answers.count()
-    user_profile = get_object_or_404(Profile, user = request.user)
-    
-    for a in all_answers:
-        if a.selection == True:
-            if_q_solved = True
-    question_writer = question.writer
-    
-    return render(request, 'qna/detail.html', {
-        'question':question, 
-        'answers':all_answers,
-        'if_q_solved':if_q_solved,
-        'question_writer': question_writer,
-        'user_profile':user_profile,
-        'comments_count' : comments_count,
-        })
+    try:
+        user_profile = get_object_or_404(Profile, user = request.user)
+
+        for a in all_answers:
+            if a.selection == True:
+                if_q_solved = True
+        question_writer = question.writer
+
+        return render(request, 'qna/detail.html', {
+            'question':question, 
+            'answers':all_answers,
+            'if_q_solved':if_q_solved,
+            'question_writer': question_writer,
+            'user_profile':user_profile,
+            'comments_count' : comments_count,
+            })
+    except:
+        return redirect('accounts:login')
 
 def major_new(request):
     #현재 로그인한 user의 profile을 가져옵니다.
