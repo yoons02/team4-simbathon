@@ -147,7 +147,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
   <script src="{% static 'js/bg_dots.js' %}"></script>
+        <!-- Arrow up -->
+        <button class="arrow__up" onclick="moveToTop()">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
 
+        <script>
+        var moveToTop = function() {
+        document.body.scrollIntoView({behavior:'smooth'});
+        };
+
+        </script>
 </body>
 
 </html>
