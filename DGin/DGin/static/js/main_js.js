@@ -1,7 +1,7 @@
 const toggleBtn = document.querySelector(".navbar__toggleBtn");
 const menu = document.querySelector(".navbar__menu");
 const icons = document.querySelector(".navbar__icons");
-
+const arrow__up = document.querySelector('.arrow__up');
 
 // Nav Bar
 toggleBtn.addEventListener("click", () => {
@@ -24,6 +24,12 @@ function searchToggle(obj, evt){
             container.find('.search-input').val('');
         }
 }
-// Search Bar
+// Arrow__up
+
+// arrow up 버튼 클릭시 홈 화면으로 이동
+arrow__up.addEventListener('click', ()=>{
+    scrollIntoView('#home');
+});
+
 
 
