@@ -6,6 +6,8 @@
     --dongguk-color-2-- : #EA5515;
     --dongguk-color-3-- : #433526;
     --accent-color: rgb(87, 170, 166)
+
+    --animation-duration: 300ms;
   }      
   a {
     text-decoration: none;
@@ -721,4 +723,19 @@ input[type="radio"] {
   .footer .copyright .dgu-lion {
     color: var(--dongguk-color-2--);
     font-weight: bold;
+  }
+
+  .arrow__up {
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    height: 70px;
+    width: 70px;
+    background-color: var(--dongguk-color-1--);
+    font-size: 50px;
+    color: var(--dongguk-color-0--);
+    border-radius: 50%;
+    border: 1px solid var(--dongguk-color-0--);
+    transition: all var(--animation-duration) ease-in;
+    /* pointer-events: fill; */
   }
