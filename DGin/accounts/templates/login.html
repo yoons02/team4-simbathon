@@ -1,39 +1,63 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block style&js %}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=NanumGothic&display=swap">
-<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-{% endblock %}
-
 {% block content %}
-<div class="login">
-    <div class="logo">
-        <div class="image">
-            <img src="{% static 'img/dgin_icon2.png' %}" alt="">
-        </div>
-        <div class="v31_281">동국!N</div>
-    </div><br><br>
-    <span class="v31_281_2">로그인</span>
-    <form action="{% url 'accounts:login' %}" method="POST">
-        {% csrf_token %}
-        <div class="v19_437">
-            <div class="id">
-                아이디 : <input type="text" style="width:240px;" name="username"><br>
-            </div>
-        </div>
-        <div class="v19_438">
-            <div class="pw">
-                비밀번호 : <input type="password" style="width:240px;" name="password"><br>
-            </div>
-        </div>
-        <div class="submit_button">			
-            <button type="submit" value="로그인"><a class="btn btn-orange">로그인</a></button>		
-        </div>
-    </form>
+<style>
 
-    <div class="message">계정이 없으신가요? <a href="{% url 'accounts:signup' %}">회원가입</a>하시고 많은 서비스를 이용해보세요.</div>
+.main-nav {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    height: 500px;
+    cursor: pointer;
+}
+.main-nav ul {
+	position: absolute;
+  width: 50%;
+	top: 40%;
+	margin: 0;
+	padding: 0;
+}
+.main-nav li {
+	list-style: none;
+	float: left;
+}
+.main-nav a {
+  display: block;
+  height: 50px;
+	margin: 10px;
+	padding: 2px 35px;
+	text-decoration: none;
+	border-radius: 30px;
+  line-height: 45px;
+  color: #FFF;
+	-webkit-transition: all 0.30s ease-in-out;
+  	-moz-transition: all 0.30s ease-in-out;
+  	-ms-transition: all 0.30s ease-in-out;
+  	-o-transition: all 0.30s ease-in-out;
+}
+
+.main-nav li:nth-child(1) a {
+	background: #ffc739;
+	border: 2px solid #fff;
+}
+.main-nav li:nth-child(1) a:hover {
+	background: #fff;
+	color: #ffc739;
+}
+
+.main-nav li:nth-child(2) a {
+  background: #ffc739;
+	border: 2px solid #fff;
+}
+.main-nav li:nth-child(2) a:hover {
+	background: #ffc739;
+	border: 2px solid #fff;
+}
+</style>
+
+<div class="main-nav">
+	<ul>
+		<li><a class="signin" href="#0">로그인</a></li>
+		<li><a class="signup" href="#0">회원가입</a></li>
+	</ul>
 </div>
-
 {% endblock %}

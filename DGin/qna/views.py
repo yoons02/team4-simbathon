@@ -255,18 +255,20 @@ def likes(request, id):
     return redirect('accouts:login')
 
 def search(request):
-    question_list = Question.objects.all()
+    questions = Question.objects.all()
     search = request.GET.get('search', '')
     if search:
-        question_list = question_list.filter(
+        questions = questions.filter(
         Q(title__icontains = search) | #제목
         Q(body__icontains = search) | #내용
-        Q(writer__username__icontains = search) | #글쓴이
+        Q(writer__name__icontains = search) | #글쓴이
         Q(major__name__icontains = search) | #전공
         Q(major__professor__name__icontains = search) #교수
         )
+
     return render(request, 'qna/searchList.html', {
-        'questions':question_list, 'search':search
+        'questions':questions, 
+        'search':search,
         })
 
 def select(request, question_id, answer_id):

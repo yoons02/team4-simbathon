@@ -15,14 +15,14 @@
             과목선택
             </label>
             <select id="major" name="major">
-            <option value="">-------- 선택하세요 -------</option>
+            <option value="">-- 선택하세요 --</option>
             {% for m in majors %}
-            <option value="{{ m.id }}">{{ m }} - {{ m.professor }}</option>
+            <option value="{{ m }}">{{ m }}</option>
             {% endfor %}
 
             </select>
         </div>
-        <p><input type="text" name="title" id="title" style="font-size:14pt" placeholder="제목을 입력하세요" ></p>
+        <input type="text" name="title" id="title" style="font-size:14pt" placeholder="제목을 입력하세요" >
         <!-- <p><input type="file" id="image"></p> -->
         <div class="filebox">
             <input class="upload-name" value="파일선택" disabled="disabled">
@@ -34,7 +34,7 @@
         
         <!-- <div class="submit_botton"><button type = "submit">제출</button></div> -->
         <div class="submit_button">			
-            <button type="submit"><a class="btn btn-orange">물어보기</a></button>		
+            <button type="submit" style="border: none;"><a class="btn btn-orange">물어보기</a></button>		
         </div>
     </form>
 </section>

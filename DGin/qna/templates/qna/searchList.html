@@ -1,39 +1,120 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block style&js %}
+
+<link rel="stylesheet" href="{% static 'css/major_q_style.css' %}">
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rufina:400,700|Source+Sans+Pro:200,300,400,600,700" rel="stylesheet">
+
 {% endblock %}
 
-
-
-
 {% block content %}
+<div id="site__bg"></div>
+<div class="main">
 
-<h1>검색결과 페이지</h1>
+<!-- Left Title -->
+<section class="site">
+    <h1 class="site__title site__title--separator">검색 결과</h1>
+    {% if if_done_wait %}
+    <p class="site__description">답변이 완료된 질문들입니다.</p>
+    {% else %}
+    <p class="site__description">답변을 기다리는 질문들이 있어요!</p>
+    {% endif %}
+</section>
 
-<h5>'{{ search }}'에 대한 검색결과입니다.</h5>
-
-{% for q in questions %}
-    <div class="question">
-        <h2><a href="{% url 'qna:detail' q.id %}">{{q.title}}</a></h2>
-        {% if q.writer %}
-            {% if 'user' in q.writer.username %}
-                <h5>작성자 : {{ q.writer.last_name }} {{ q.writer.first_name }}</h5>
-            {% else %}
-                <h5>작성자 : {{ q.writer }}</h5>
-                <h5>나도몰라요 : {{ q.like_counts }}</h5>
-                <h5>답변수 : {{ q.answers.count }}</h5>
-                {% if q.major %}
-                    <h5>전공 : {{ q.major }}</h5>
-                    <h5>교수 : {{ q.major.professor }}</h5>
-                {% endif %}
-            {% endif %}
-        {% else %}
-            <h5>작성자 : 알 수 없음</h5>
-        {% endif %}
-        <h5>{{q.pub_date}}</h5>
-        <p>{{q.summary}}</p>
-        <br>
+{% if user.is_authenticated %}
+<!-- Left Title -->
+<section class="make_question">
+    <div class="new">
+        <h4><a href="{%url 'qna:major_new'%}" style="color: black;">질문하기 &rarr;</a></h4>
     </div>
-{% endfor %}
-<hr>
+</section>
+<!-- Right Questions -->
+<section class="question_menu">
+    <div class="search-wrapper2">
+        <form action="{% url 'qna:search' %}" method="GET">
+            {% csrf_token %}
+            <div class="input-holder">
+                <input name="search" type="text" class="search-input" placeholder="무엇이든 물어보세요!" />
+                <button type="submit" class="search-icon">
+                    <img src="{% static 'img/search.png' %}" alt="">
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="selection">
+    </div>
+</section>
+    
+
+<section class="episodes">
+
+    <!-- CARD -->
+    <div class="body-slide">
+        <div class="card-slide2">
+            <input type="radio" name="dot" id="one">
+            <input type="radio" name="dot" id="two">
+            <div class="main-card">
+                <div class="cards">
+                    
+                {% for q in questions %}
+                    <div class="card">
+                        <div class="questionBox">
+                            <div>
+                                {% if q.major %}
+                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                                <div class="professor" style="text-align:left;"></div>
+                                {% else %}
+                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                                {% endif %}
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a href="{% url 'qna:detail' q.id %}">
+                                <div class="details">
+                                    <div class="middle">
+                                        <div class="job">{{ q.title_short }}</div>
+                                        <div class="name">{{ q.writer }}</div>
+                                        {% if q.image %}
+                                        <div class="text">{{ q.summary_short }}</div>
+                                        <div class="img">
+                                            <img src="{{ q.image.url }}" alt="">
+                                        </div>
+                                        {% else %}
+                                        <div class="text">{{ q.summary_long }}</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="down">
+                                        <hr>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
+                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<!-- Right Questions -->
+{% else %}
+<div class="nonmessage">
+    <h4>질문게시판 메뉴는 로그인 후 이용 가능합니다.</h4>
+    
+  <a href="{% url 'accounts:login' %}">로그인</a>
+  <a href="{% url 'accounts:signup' %}">회원가입</a>
+</div>
+{% endif %}
+
+</div>
+
+
 {% endblock %}

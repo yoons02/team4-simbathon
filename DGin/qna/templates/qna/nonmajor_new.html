@@ -10,7 +10,7 @@
     <div class="question"><h1>상담 글 쓰기</h1></div>
     <form action="{%url 'qna:nonmajor_create'%}" method="post" enctype="multipart/form-data">
         {%csrf_token%}
-        <p><input type="text" name="title" id="title" style="font-size:14pt" placeholder="제목을 입력하세요" ></p>
+        <input type="text" name="title" id="title" style="font-size:14pt" placeholder="제목을 입력하세요" >
         <!-- <p><input type="file" id="image"></p> -->
         <div class="filebox">
             <input class="upload-name" value="파일선택" disabled="disabled">
@@ -22,7 +22,7 @@
         
         <!-- <div class="submit_botton"><button type = "submit">제출</button></div> -->
         <div class="submit_button">			
-            <button type="submit"><a class="btn btn-orange">물어보기</a></button>		
+            <button type="submit" style="border: none;"><a class="btn btn-orange">물어보기</a></button>		
         </div>
     </form>
 </section>

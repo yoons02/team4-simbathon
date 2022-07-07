@@ -1,74 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block style&js %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style_index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/detail_style.css' %}">
 {% endblock %}
 
 {% block content %}
 <section>
     <div class="question">
-        <h1>{{question.title}}</h1>
-        {% if question.writer %}
-            <h3>작성자 : {{ question.writer }}</h3>
-            {% if question.major %}
-                <h5>전공 : {{ question.major }}</h5>
-                <h5>교수 : {{ question.major.professor }}</h5>
-            {% endif %}
-        {% else %}
-            <h3>작성자 : 알 수 없음</h3>
-        {% endif %}
-        <h5>나도몰라요 : {{ question.like_counts }}</h5>
-        <h5>답변수 : {{ question.answers.count }}</h5>
+        <div class="data1">
+        {% if question.major %}
+        <p class="major" style="align-items: left;">전공 | {{ question.major }} </p>
+        <p class="professor" style="align-items: right;">교수 | {{ question.major.professor }}</p>
+                {% endif %}</div>
+        <div class="title">
+        {{question.title}}</div>
 
-        <h5>{{ question.pub_date }}</h5>
-        <br>
         {% if question.image %}
             <div class="picBox pd56">
                 <div class="pic">
                     <p><img src="{{ question.image.url }}" alt="사진"></p>
                 </div>
             </div>
-            <br>
         {% endif %}
-        <p>{{question.body}}</p>
-        
-        {% if user.is_authenticated %}
-        <div>
-            <form action="{%url 'qna:likes' question.id%}" method="POST">
-                {%csrf_token%}
-                {% if user in question.like_users.all %}
-                    <input type="submit" value='나도몰라요 취소'>
-                {% else %}
-                    <input type="submit" value='나도몰라요'>
-                {% endif %}
-            </form>
+        <div class="answer">
+        <p>{{question.body}}</p></div>
+
+        <div class="data2">
+            {% if question.writer %}
+                작성자 | {{ question.major.department }} {{ question.writer }}
+            {% else %}
+                작성자 | 알 수 없음
+            {% endif %}<br>
+            작성일 | {{ question.pub_date }}
         </div>
+
+            <form action="{%url 'qna:likes' question.id%}" method="POST">
+                <div class="idk">			
+                {%csrf_token%}
+                {% if user in question.like_users.all %}	
+                <button type="submit" style="border: none;"><a class="btn btn-orange">나도몰라요 취소  {{ question.like_counts }}</a></button>		
+                {% else %}
+                <button type="submit" style="border: none;"><a class="btn btn-orange">나도몰라요  {{ question.like_counts }}</a></button>		
+                {% endif %}</div>
+            </form>
+        
         <br>
             {% if question.writer == user_profile %}
             <a href="{% url 'qna:edit' question.id %}"><strong>수정하기 &nbsp</strong></a>
             <a href="{% url 'qna:delete' question.id %}"><strong>삭제하기</strong></a>
             {% endif %}
-        {% endif %}
         <hr>
-        
+
         {% if user.is_authenticated %}
-        <div>
+        <div class="solver">
             <form action="{%url 'qna:create_answer' question.id%}" method="POST" enctype="multipart/form-data">
                 {%csrf_token%}
                 <textarea name="content" placeholder="문제의 답을 해결해주세요!"></textarea>
-                <input type="file" name="image">
-                <input type="submit" value="확인">
+                <div class="filebox">
+                    <input class="upload-name" value="파일선택" disabled="disabled">
+                    <label for="ex_filename">업로드</label> 
+                    <input type="file" name="image" id="ex_filename" class="upload-hidden"> 
+                </div>
+                <div class="submit_button">			
+                    <button type="submit" style="border: none;"><a class="btn btn-orange">확인</a></button>		
+                </div>
             </form>
         </div>
-        <hr>
+        
         {% else %}
         <h3>답변을 올리려면 로그인을 해 주세요.</h3>
-        <hr>
+
         {% endif %}
+        <br><hr>
         <div>
             {% for answer in answers %}
+            <div class="comment">
+                {{answer.content}}</div>
             <div>
-                <h4>작성자 : {{answer.writer}}</h4>
+                <div class="data2">
+                    {% if question.writer %}
+                        작성자 | {{ question.major.department }} {{ answer.writer.year_in_school }} {{answer.writer}}
+                    {% else %}
+                        작성자 | 알 수 없음
+                    {% endif %}<br>
+                    작성일 | {{ answer.created_at }}
+                </div>
                 {% if answer.selection is True %}
                 <h4>채택완료</h4>
                 {% endif %}
@@ -80,9 +96,8 @@
                 </div>
                 <br>
                 {% endif %}
-                <p>{{answer.content}}</p>
                 {% if answer.writer == user_profile %}
-                <a href="{% url 'qna:edit_answer' question.id answer.id %}"><strong>수정하기 &nbsp</strong></a>
+                <a href="{% url 'qna:edit_answer' question.id answer.id %}"><strong>수정하기</strong></a>
                 <a href="{% url 'qna:delete_answer' question.id answer.id %}"><strong>삭제하기</strong></a>
                 {% endif %}
 
@@ -109,10 +124,11 @@
 
                 {% endif %}
 
-                <br><hr>
+                <br>
             </div>
             {% endfor %}
         </div>  
     </div>
 </section>
+<script src="{% static 'js/que_new.js' %}" defer="defer"></script>
 {% endblock %}
