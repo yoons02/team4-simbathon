@@ -48,7 +48,7 @@ a:hover{
 }
 html, body {
     margin : 0;
-    font-family: 'Source Sans Pro';
+    font-family: 'Nanum Gothic', sans-serif;
 	
 }
 
@@ -81,7 +81,7 @@ nav {
 }
 .navbar__logo {
     font-size: 34px;
-    font-family: NanumGothic;
+    font-family: 'Nanum Gothic', sans-serif;
     color:white;
     width: 220px;
     position:relative;
@@ -103,7 +103,7 @@ nav {
 }
 .navbar__logo a {
     font-size: 34px;
-    font-family: NanumGothic;
+    font-family: 'Nanum Gothic', sans-serif;
     font-weight: bold;
 }
 .navbar__logo > .logo > a > div{
@@ -118,7 +118,7 @@ nav {
     display : flex;
     justify-content: space-around;
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     font-weight: bold;
     font-size: 16px;
 }
@@ -288,7 +288,7 @@ nav {
     box-sizing: border-box;
     border:none;
     outline:none;
-    font-family:"Open Sans", Arial, Verdana;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: 25px;
     font-weight: 400;
     line-height: 20px;
@@ -401,7 +401,7 @@ nav {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .slide-body {
@@ -544,7 +544,7 @@ nav {
 }
 .content .details {
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     color: black;
 }
 .content .details .down{
@@ -700,7 +700,7 @@ input[type="radio"] {
 }
 .title{
     margin:20px 20px 32px;    
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: 28px;
     color: #435446;
     font-weight: bold;
