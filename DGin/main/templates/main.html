@@ -49,42 +49,43 @@
                 <div class="cards">
                     
                 {% for q in recommended_questions1 %}
-                    <div class="card">
-                        <div class="questionBox">
-                            <div>
-                                {% if q.major %}
-                                <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
-                                <div class="professor" style="text-align:left;"></div>
-                                {% else %}
-                                <div class="major" style="text-align:left; padding:15px 0">상담</div>
-                                {% endif %}
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <a href="{% url 'qna:detail' q.id %}">
-                                <div class="details">
-                                    <div class="middle">
-                                        <div class="job">{{ q.title_short }}</div>
-                                        <div class="name">{{ q.writer }}</div>
-                                        {% if q.image %}
-                                        <div class="text">{{ q.summary_short }}</div>
-                                        <div class="img">
-                                            <img src="{{ q.image.url }}" alt="">
-                                        </div>
-                                        {% else %}
-                                        <div class="text">{{ q.summary_long }}</div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="down">
-                                        <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
-                                        <span class="date" style="float:right;">{{ q.pub_date }}</span>
-                                    </div>
-                                </div>
-                            </a>
+                <div class="card">
+                    <div class="questionBox">
+                        <div>
+                            {% if q.major %}
+                            <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
+                            <div class="professor" style="text-align:left;"></div>
+                            {% else %}
+                            <div class="major" style="text-align:left; padding:15px 0">상담</div>
+                            {% endif %}
+                            <hr>
                         </div>
                     </div>
+                    <div class="content">
+                        <a href="{% url 'qna:detail' q.id %}">
+                            <div class="details">
+                                <div class="middle">
+                                    <div class="job">{{ q.title_short }}</div>
+                                    <div class="name">{{ q.writer }}</div>
+                                    {% if q.image %}
+                                    <div class="text">{{ q.summary_short }}</div>
+                                    <div class="img">
+                                        <img src="{{ q.image.url }}" alt="">
+                                    </div>
+                                    {% else %}
+                                    <div class="text">{{ q.summary_long }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="down">
+                                    <hr>
+                                    <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                    <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
+                                    <span class="date" style="float:right;">{{ q.pub_date }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 {% endfor %}    
                 </div>
                 <div class="cards">
@@ -118,7 +119,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
@@ -174,7 +176,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
@@ -214,7 +217,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
@@ -270,7 +274,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
@@ -310,7 +315,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
@@ -367,7 +373,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
@@ -407,7 +414,8 @@
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job">? : {{ q.like_counts }}</span>
+                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
+                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
