@@ -1,7 +1,9 @@
+'use strict';
+
 const toggleBtn = document.querySelector(".navbar__toggleBtn");
 const menu = document.querySelector(".navbar__menu");
 const icons = document.querySelector(".navbar__icons");
-
+const arrow__up = document.querySelector('.arrow__up');
 
 // Nav Bar
 toggleBtn.addEventListener("click", () => {
@@ -24,6 +26,8 @@ function searchToggle(obj, evt){
             container.find('.search-input').val('');
         }
 }
-// Search Bar
+// Arrow__up : 적용이 어쩐지 안되서 html에다가 적용함 
+
+
 
 

@@ -9,7 +9,7 @@
 
     <!-- On Img -->
     <!-- https://ko.w3hmong.com/howto/howto_css_image_text.htm -->
-    <div class="on_img">
+    <div class="on_img" id="home">
         <img src="https://article.talentbank.co.kr/wp-content/uploads/2021/12/IT_twi001t3120033-scaled.jpg" alt="Snow"
             style="width:100%;">
         <div class="centered">
@@ -431,6 +431,17 @@
             </div>
         </div>
     </div>
+        <!-- Arrow up -->
+        <button class="arrow__up" onclick="moveToTop()">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+
+        <script>
+        var moveToTop = function() {
+        document.body.scrollIntoView({behavior:'smooth'});
+        };
+
+        </script>
 
 
 {% endblock %}
