@@ -94,11 +94,11 @@ nav {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .navbar__menu li {
-    color:white;
+    color:rgb(255, 255, 255);
     padding: 10px 20px;
 }
 .navbar__icons {
@@ -153,7 +153,7 @@ nav {
         width: 100%;
     }
 
-    .navbar__menu li {
+    .navbar__menu li{
         width: 100%;
         text-align: center;
     }
@@ -682,25 +682,31 @@ input[type="radio"] {
 }
 
 
-footer {
-    background-color: #c68700;
+/* footer {
+    background-color: #19150f;
     color : var(--dongguk-color-3--);
     display: flex;
     padding: .5rem 2rem;
     font-size: 1rem;
     font-weight: 300; }
     footer .footer__content {
-      width: 60%; }
+        width: 60%;}
     footer .footer__logo {
-      width: 40%;
-      text-align: right;
-      align-self: center;
-      margin-top: 0.5rem 0 -0.5rem 0; }
-  
+        width: 40%;
+        text-align: right;
+        align-self: center;
+        margin-top: 0.5rem 0 -0.5rem 0; 
+} */
+
+footer {
+    background-color: #F29303;
+}
+
+
 
 @media only screen and (min-width: 1000px) {
     
-  footer {
+footer {
     padding-left: 110px;
     margin-bottom: -1rem; }
 

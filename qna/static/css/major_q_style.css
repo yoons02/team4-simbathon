@@ -63,8 +63,8 @@ a {
   font-size: 2.6rem;
   margin-bottom: 1rem;
   position: relative; 
+  font-weight: 600;}
 
-  font-weight: 500;}
   .site__title.site__title--separator:after {
     position: absolute;
     border-bottom: 3px solid #F79E77;
@@ -78,7 +78,7 @@ a {
 .site__description {
   color: #ca7600;
   font-size: 1.2rem;
-  font-weight: 200;
+  font-weight: 600;
   padding-top: 1rem;
   z-index: 1; }
 

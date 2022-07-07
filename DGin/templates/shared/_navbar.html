@@ -3,22 +3,22 @@
 <nav class="navbar">
   <div class="navbar__logo">
         <div class="logo">
-            <a href="/">
-                <div class="image">
+            <a href="/" style="text-decoration:none; color:white;">
+                <div class="image" style="text-decoration:none; color:white;">
                     <img src="{% static 'img/dgin_icon1.png' %}" alt="">
                 </div>
-                <div class="text">
-                    동국 !N
+                <div class="text" style="text-decoration:none; color:white;">
+                동국 !N
                 </div>
             </a>
         </div>
   </div>
   <ul class="navbar__menu">
       <li>
-          <a href="{% url 'qna:majorList' %}">질문게시판</a>
+        <a href="{% url 'qna:majorList' %}" style="text-decoration:none; color:white;" >질문게시판</a>
       </li>
       <li>
-          <a href="{% url 'qna:nonmajorList' %}">상담게시판</a>
+          <a href="{% url 'qna:nonmajorList' %}" style="text-decoration:none; color:white;">상담게시판</a>
       </li>
   </ul>
   <ul class="navbar__icons">
