@@ -14,9 +14,9 @@
         <p>내용: <textarea type="text" name="body" id="" cols="30" rows="10">{{ question.body }}</textarea></p>
         <p>전공: 
             <select name="major">
-                <option value="nothing">해당 없음</option>
+                <option value="{{q_major}}">{{q_major - professor}}</option>
                 {% for m in majors %}
-                <option value="{{ m }}">{{ m }}</option>
+                <option value="{{ m }}">{{ m }} - {{ m.professor }}</option>
                 {% endfor %}
             </select>
         </p>

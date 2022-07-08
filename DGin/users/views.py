@@ -5,7 +5,8 @@ def mypage(request):
    #내가 쓴 글 필터링하는 함수
    user_profile = get_object_or_404(Profile, user = request.user)
    questions=Question.objects.filter(writer=user_profile)
-   user_department = user_profile.department.all()
+   user_department = user_profile.department
+   user_sub_department = user_profile.sub_department
    answers=Answer.objects.filter(writer=user_profile)
    count_q = questions.count()
    count_a = answers.count()
@@ -13,6 +14,7 @@ def mypage(request):
       'questions':questions,
       'profile':user_profile,
       'user_department':user_department,
+      'user_sub_department':user_sub_department,
       'answers': answers,
       'count_q': count_q,
       'count_a': count_a,
@@ -37,18 +39,16 @@ def mypage_edit(request):
    #질문 작성 crud에서는 질문의 id를 가져와서 수정했던거에 비해 프로필은 request.user로 현재 로그인된 계정을 불러올수 있으니까 따로 id를 선언해줄 필요 없어   
    departments = Department.objects.all()
    myprofile = get_object_or_404(Profile, user=request.user)
-   mine =  myprofile.department.all()
-   plus_result = []
-   minus_result = []
-   for d in departments:
-      if d in mine:
-         minus_result.append(d)
-      else:
-         plus_result.append(d)
+   user_department =  myprofile.department
+   user_sub_department = myprofile.sub_department
+   department_list = departments
+   sub_department_list = departments
    return render(request,'users/mypage_edit.html',{
-      'plus_departments':plus_result,   
-      'minus_departments':minus_result,
+      'user_department':user_department,   
+      'user_sub_department':user_sub_department,
       'profile':myprofile,
+      'department_list':department_list,
+      'sub_department_list':sub_department_list,
       })
 
 def mypage_update(request):
@@ -56,12 +56,10 @@ def mypage_update(request):
    update_mypage.introduction = request.POST['intro']
    update_mypage.image = request.FILES.get('profile_image')
    update_mypage.name = request.POST['name']
-   if request.POST['plus_department'] != '':
-      department = Department.objects.get(name = request.POST['plus_department'])
-      update_mypage.department.add(department)
-   if request.POST['minus_department'] != '':
-      department = Department.objects.get(name = request.POST['minus_department'])
-      update_mypage.department.remove(department)
+   if request.POST['department'] != '':
+      update_mypage.department = Department.objects.get(name = request.POST['department'])
+   if request.POST['sub_department'] != '':
+      update_mypage.sub_department = Department.objects.get(name = request.POST['sub_department'])
    grade = request.POST['grade']
 
    FRESHMAN = '1학년'
@@ -85,53 +83,4 @@ def mypage_update(request):
    else :
       pass
    update_mypage.save()
-   return redirect('users:mypage')
-
-def myprofile_set(request):
-   departments = Department.objects.all()
-   myprofile = get_object_or_404(Profile, user=request.user)
-   mine =  myprofile.department.all()
-   plus_result = []
-   minus_result = []
-   for d in departments:
-      if d in mine:
-         minus_result.append(d)
-      else:
-         plus_result.append(d)
-   return render(request, 'users/myprofile_set.html',{
-      'plus_departments':plus_result,   
-      'minus_departments':minus_result,
-      'profile':myprofile,
-   })
-
-def myprofile_save(request):
-   myprofile = get_object_or_404(Profile, user=request.user)
-   myprofile.name = request.POST['name']
-   if request.POST['plus_department'] != '':
-      department = Department.objects.get(name = request.POST['plus_department'])
-      myprofile.department.add(department)
-   if request.POST['minus_department'] != '':
-      department = Department.objects.get(name = request.POST['minus_department'])
-      myprofile.department.remove(department)
-   grade = request.POST['grade']
-   
-   FRESHMAN = '1학년'
-   SOPHOMORE = '2학년'
-   JUNIOR = '3학년'
-   SENIOR = '4학년'
-   POSTGRAD = '대학원생'
-   GRADUATED = '졸업생'
-   if grade == "1":
-      myprofile.year_in_school = FRESHMAN
-   elif grade == "2":
-      myprofile.year_in_school = SOPHOMORE
-   elif grade == "3":
-      myprofile.year_in_school = JUNIOR
-   elif grade == "4":
-      myprofile.year_in_school = SENIOR 
-   elif grade == "pg":
-      myprofile.year_in_school = POSTGRAD 
-   elif grade == "gr":
-      myprofile.year_in_school = GRADUATED
-   myprofile.save()
    return redirect('users:mypage')

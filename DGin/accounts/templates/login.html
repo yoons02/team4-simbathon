@@ -1,63 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
+    .nonmessage {
+        height: 600px;
+        overflow: hidden;
+    }
 
-.main-nav {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    height: 500px;
-    cursor: pointer;
-}
-.main-nav ul {
-	position: absolute;
-  width: 50%;
-	top: 40%;
-	margin: 0;
-	padding: 0;
-}
-.main-nav li {
-	list-style: none;
-	float: left;
-}
-.main-nav a {
-  display: block;
-  height: 50px;
-	margin: 10px;
-	padding: 2px 35px;
-	text-decoration: none;
-	border-radius: 30px;
-  line-height: 45px;
-  color: #FFF;
-	-webkit-transition: all 0.30s ease-in-out;
-  	-moz-transition: all 0.30s ease-in-out;
-  	-ms-transition: all 0.30s ease-in-out;
-  	-o-transition: all 0.30s ease-in-out;
-}
-
-.main-nav li:nth-child(1) a {
-	background: #ffc739;
-	border: 2px solid #fff;
-}
-.main-nav li:nth-child(1) a:hover {
-	background: #fff;
-	color: #ffc739;
-}
-
-.main-nav li:nth-child(2) a {
-  background: #ffc739;
-	border: 2px solid #fff;
-}
-.main-nav li:nth-child(2) a:hover {
-	background: #ffc739;
-	border: 2px solid #fff;
-}
-</style>
-
-<div class="main-nav">
-	<ul>
-		<li><a class="signin" href="#0">로그인</a></li>
-		<li><a class="signup" href="#0">회원가입</a></li>
-	</ul>
+    .nonmessage .text{
+        margin: 200px auto 0;
+        text-align: center;
+    }
+    .account_button {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        height: 500px;
+        cursor: pointer;
+    }
+    .account_button ul {
+        position: absolute;
+      width: 50%;
+        top: 55%;
+        margin: 0;
+        padding: 0;
+    }
+    .account_button li {
+        list-style: none;
+        float: left;
+    }
+    .account_button a {
+      display: block;
+      height: 50px;
+        margin: 10px;
+        padding: 2px 35px;
+        text-decoration: none;
+        border-radius: 30px;
+      line-height: 45px;
+      color: #FFF;
+        -webkit-transition: all 0.30s ease-in-out;
+          -moz-transition: all 0.30s ease-in-out;
+          -ms-transition: all 0.30s ease-in-out;
+          -o-transition: all 0.30s ease-in-out;
+    }
+    
+    .account_button li:nth-child(1) a {
+        background: #ffc739;
+        border: 2px solid #fff;
+    }
+    .account_button li:nth-child(1) a:hover {
+        background: #fff;
+        color: #ffc739;
+    }
+    
+    .account_button li:nth-child(2) a {
+      background: #ffc739;
+        border: 2px solid #fff;
+    }
+    .account_button li:nth-child(2) a:hover {
+        background: #ffc739;
+        border: 2px solid #fff;
+    }
+    </style>
+<div class="nonmessage">
+    <div class="text">
+        <h4>질문게시판 메뉴는 로그인 후 이용 가능합니다.</h4>
+    </div>       
+    <div class="main-nav account_button">
+        <ul>
+            <li><a class="signin" href="#0">로그인</a></li>
+            <li><a class="signup" href="#0">회원가입</a></li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

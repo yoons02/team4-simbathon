@@ -25,7 +25,7 @@
                       {% if profile.image  %}
                       <img src="{{ profile.image.url }}" class="rounded-circle">
                       {% else %}
-                      <img src="https://t1.daumcdn.net/cfile/tistory/996D544A5ED865C83C" class="rounded-circle">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtB6rXnf0CcbxpTidJShuQWRvubJ-tDJS41O9C8IdKGeKxAk7Bnl2A2Vf-iB3Ef-oskVM&usqp=CAU" class="rounded-circle">
                       {% endif %}
                     </a>
                   </div>
@@ -58,74 +58,75 @@
                   </div>
                 </div>
                 <hr class="my-4">
+                <style>
+                </style>
                 <div class="info">
-                  <!-- <p class="sanserif">
-                  <h1>
-                      INFO
-                  </h1>
-                  </p> -->
-                  <p class="nickname">
-                      <p class="info-title">닉네임 &nbsp;|
-                        <span class="info-text">
-                          <I>{{profile}}</I>
-                        </span>
-                      </p>
-                  </p>
-                  <p class="major">
-                    <p class="info-title">전　공 &nbsp;|
-                      <span class="info-text">
-                        <I>{% for d in user_department %}{{ d }}{% endfor %}</I>
-                      </span>
-                    </p>
-                  </p>
+                  <div class="profilebox" style="padding-left: 6rem;">
+                    <div class="nickname">
+                      <div class="info-title">
+                          <div class="title2">닉네임 &nbsp;|</div>
+                          <span class="info-text">
+                              <I>{{profile}}</I>
+                          </span>
+                      </div>
+                    </div>
+                    <div class="major">
+                      <div class="info-title">
+                          <div class="title2" id="major">전　공 &nbsp;|</div>                    
+                          <div class="major_select">
+                              <div class="info-text">
+                                <I>{{user_department}}</I>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    {% if user_sub_department %}
+                    <div class="sub_major">
+                      <div class="info-title">
+                          <div class="title2" id="sub_major">부전공 / 복수전공 &nbsp;|</div>                    
+                          <div class="major_select">
+                              <div class="info-text">
+                                <I>{{user_sub_department}}</I>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                    <div class="grade">
+                      <div class="info-title">
+                          <div class="title2">학　년 &nbsp;|</div>
+                          <span class="info-text">
+                            <I>{{profile.year_in_school}}</I>
+                          </span>
+                      </div>
+                    </div>          
 
-                  <p class="grade">
-                    <p class="info-title">학　년 &nbsp;|
-                      <span class="info-text">
-                        <I>{{profile.year_in_school}}</I>
-                      </span>
-                    </p>
-                  </p>
-              </div>
-                <div class="text-center">
-                  <!-- <h3>
-                    <span class="name"><br>안유성</span>
-                    <span class="major"><br>전자과</span>
-                  </h3>
-                  <div class="h5 font-weight-300">
-                    <i class="ni location_pin mr-2"></i>2학년
                   </div>
-                  <br>
-                  <div>
-                    <i class="ni education_hat mr-2"></i>[ 자신있는 수업 ]
-                  </div>
-                  <div class="h5 ">
-                    <i class="ni business_briefcase-24 mr-2"></i>: 전자기학, 회로이론
-                  </div> -->
                   
-                  <hr class="my-4">
-                  <p class="introduce">— {{profile.introduction}}</p>
-                  <!-- <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Show more</a> -->
-                  <hr class="my-4">
-                  <div class="post_list">
-                    <div class="questions">
-                      <h4>내가 작성한 질문 목록</h4>
-                      {% for question in questions %}
-                      <a href="{% url 'qna:detail' question.id %}">
-                        <h5>{{ question.title }}</h5>
-                      </a>
-                      {% endfor %}
-                    </div>
-                    <div class="answers">
-                      <h4>내가 작성한 답변 목록</h4>
-                      {% for answer in answers %}
-                      <a href="{% url 'qna:detail' answer.question.id %}">
-                        <h5>{{ answer.content }}</h5>
-                      </a>
-                      {% endfor %}
+                  <div class="text-center">
+                    <hr class="my-4">
+                    <p class="introduce">— {{profile.introduction}}</p>
+                    <!-- <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Show more</a> -->
+                    <hr class="my-4">
+                    <div class="post_list">
+                      <div class="questions">
+                        <h4>내가 작성한 질문 목록</h4>
+                        {% for question in questions %}
+                        <a href="{% url 'qna:detail' question.id %}">
+                          <h5>{{ question.title }}</h5>
+                        </a>
+                        {% endfor %}
+                      </div>
+                      <div class="answers">
+                        <h4>내가 작성한 답변 목록</h4>
+                        {% for answer in answers %}
+                        <a href="{% url 'qna:detail' answer.question.id %}">
+                          <h5>{{ answer.content }}</h5>
+                        </a>
+                        {% endfor %}
+                      </div>
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>

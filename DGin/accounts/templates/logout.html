@@ -1,7 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+    .logout_message{
+        height: 400px;
+        text-align: center;
+    }
+    .logout_message .text{
+        margin: 12rem;
+        text-align: center;
+    }
+    .logout_message .text h2{
+        margin: 2rem 0;
+    }
+    .logout_message .text p a{
+        color: black;
+        text-decoration: underline;
+    }
+</style>
 
-<h2> 다음에 또 다시 만나요 </h2> <br>
-<p><a href="{% url 'main:landing' %}">다시 공부하러가기</a></p>
+<div class="logout_message">
+    <div class="text">
+        <h2> 다음에 또 다시 만나요 </h2>
+        <p><a href="{% url 'main:landing' %}">다시 공부하러가기</a></p>
+    </div>
+</div>
 
 {% endblock %}
