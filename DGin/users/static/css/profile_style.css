@@ -826,6 +826,7 @@
   font-family: 'Poppins', sans-serif;
   color: var(--dongguk-color-1--);
   text-align: right;
+  width: 200px;
 }
 form .info-title{
   display:grid;

@@ -32,7 +32,8 @@ class Profile(models.Model):
     name = models.CharField(max_length=20, blank=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
     image = models.ImageField(upload_to = "image/", blank=True, null=True)
-    department = models.ManyToManyField(Department)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True, related_name="department")
+    sub_department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True, related_name="sub_department")
     introduction = models.TextField(max_length=300, blank=True, null=True)
 
     FRESHMAN = '1학년'
