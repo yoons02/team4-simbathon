@@ -561,3 +561,12 @@ a {
         }
     }
     /* Card Slide */
+.nonmessage {
+  height: 540px;
+  overflow: hidden;
+}
+
+.nonmessage .text{
+  margin: 0 auto;
+  text-align: center;
+}

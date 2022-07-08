@@ -38,7 +38,7 @@ def signup(request):
             profile.user = user
             profile.save()
 
-            return redirect('users:myprofile_set')
+            return redirect('users:mypage_edit')
     # signup으로 GET 요청이 왔을 때, 회원가입 화면을 띄워준다
     return render(request, 'signup.html')
 # Create your views here.
