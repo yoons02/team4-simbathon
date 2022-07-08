@@ -188,7 +188,8 @@ def edit(request, id):
     for m in user_majors: 
         user_major_list.append(m)
     q_major = edit_question.major
-    return render(request, 'qna/edit.html', {
+    user_major_list.remove(q_major)
+    return render(request, 'qna/edit copy.html', {
         'question' : edit_question,
         'majors': user_major_list,
         'q_major': q_major,

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style&js %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/que_new.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="new">
+    <div class="question"><h1>질문 수정하기</h1></div>
+    <form action="{%url 'qna:update' question.id %}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="select_major">
+            <label for="subject">
+            과목선택
+            </label>
+            <select name="major">
+                <option value="nothing">{{q_major}} - {{q_major.professor}}</option>
+                {% for m in majors %}
+                <option value="{{ m.id }}">{{ m }} - {{ m.professor }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <textarea type="text" name="title" id="title" style="font-size:14pt" placeholder="{{ question.title }}">{{ question.title }}</textarea>
+        <!-- <p><input type="file" id="image"></p> -->
+        <div class="filebox">
+            <input class="upload-name" value="파일선택" disabled="disabled">
+
+            <label for="ex_filename">업로드</label> 
+            <input type="file" name="image" id="ex_filename" class="upload-hidden"> 
+        </div>
+        <p><textarea type="text" name="body" class='autoExpand' rows='3' data-min-rows='3' placeholder='내용을 입력하세요' style="font-size:14pt" autofocus>{{ question.body }}</textarea></p>
+        
+        <!-- <div class="submit_botton"><button type = "submit">제출</button></div> -->
+        <div class="submit_button">			
+            <button type="submit" style="border: none;"><a class="btn btn-orange">물어보기</a></button>		
+        </div>
+    </form>
+</section>
+<script src="{% static 'js/que_new.js' %}" defer="defer"></script>
+{% endblock %}
