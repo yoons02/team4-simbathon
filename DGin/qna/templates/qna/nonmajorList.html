@@ -149,6 +149,7 @@
                 {% for q in questions %}
                     <div class="card">
                         <div class="questionBox">
+                            <span class="job">{{ q.like_counts }}명이 몰라요!</span>
                             <div>
                                 {% if q.major %}
                                 <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
@@ -166,18 +167,17 @@
                                         <div class="job">{{ q.title_short }}</div>
                                         <div class="name">{{ q.writer }}</div>
                                         {% if q.image %}
-                                        <div class="text">{{ q.summary_short }}</div>
-                                        <div class="img">
-                                            <img src="{{ q.image.url }}" alt="">
-                                        </div>
-                                        {% else %}
-                                        <div class="text">{{ q.summary_long }}</div>
+                                        <div class="text1">{{ q.summary_short }}</div>
+                                    <!-- <div class="img">
+                                        <img src="{{ q.image.url }}" alt="">
+                                    </div> -->
+                                    {% else %}
+                                    <div class="text2">{{ q.summary_long }}</div>
                                         {% endif %}
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job"> 나도몰라요 [{{ q.like_counts }}]</span>
-                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
+                                        <span class="job2">답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>

@@ -25,13 +25,13 @@
 {% if user.is_authenticated %}
 <!-- Left Title -->
 <section class="make_question">
-    <div class="new">
-        <h4><a href="{%url 'qna:major_new'%}" style="color: black;">질문하기 &rarr;</a></h4>
+    <div class="new" style="text-align: center;">
+        <h4 style="min-height: 15%;"><a href="{%url 'qna:major_new'%}" style="color: black; align-items: center;">질문하기 &rarr;</a></h4>
     </div>
 </section>
 <!-- Right Questions -->
-<section class="question_menu">
-    <div class="search-wrapper2">
+<section class="question_menu" style="float: center; padding-left:20px">
+    <div class="search-wrapper2" style="float: left;">
         <form action="{% url 'qna:search' %}" method="GET">
             {% csrf_token %}
             <div class="input-holder">
@@ -43,7 +43,7 @@
         </form>
     </div>
 
-    <div class="selection">
+    <div class="selection" style="position: relative; float: center; display: flex;">
         <form class="selectionForm" action="{%url 'qna:majorList' %}" method="post" enctype="multipart/form-data">
             {%csrf_token%}
                 <input id="wait" type = "radio" name="selection" value="wait"> 
@@ -72,6 +72,7 @@
                 {% for q in questions %}
                     <div class="card">
                         <div class="questionBox">
+                            <span class="job">{{ q.like_counts }}명이 몰라요!</span>
                             <div>
                                 {% if q.major %}
                                 <div class="major" style="text-align:left;">{{ q.major }}<br>{{ q.major.professor }} 교수님</div>
@@ -89,18 +90,17 @@
                                         <div class="job">{{ q.title_short }}</div>
                                         <div class="name">{{ q.writer }}</div>
                                         {% if q.image %}
-                                        <div class="text">{{ q.summary_short }}</div>
-                                        <div class="img">
-                                            <img src="{{ q.image.url }}" alt="">
-                                        </div>
-                                        {% else %}
-                                        <div class="text">{{ q.summary_long }}</div>
+                                        <div class="text1">{{ q.summary_short }}</div>
+                                    <!-- <div class="img">
+                                        <img src="{{ q.image.url }}" alt="">
+                                    </div> -->
+                                    {% else %}
+                                    <div class="text2">{{ q.summary_long }}</div>
                                         {% endif %}
                                     </div>
                                     <div class="down">
                                         <hr>
-                                        <span class="job"> 나도몰라요수 [{{ q.like_counts }}]</span>
-                                        <span class="job"> &nbsp;  &nbsp; 답변수 [{{ q.answers.count }}] </span>
+                                        <span class="job2">답변수 [{{ q.answers.count }}] </span>
                                         <span class="date" style="float:right;">{{ q.pub_date }}</span>
                                     </div>
                                 </div>
